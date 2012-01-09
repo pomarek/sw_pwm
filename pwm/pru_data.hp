@@ -1,0 +1,59 @@
+#define REG_SIZE				4
+#define REG_ADDR_SIZE			4
+#define GPIO_SET_OFFSET			4
+#define GPIO_CLEAR_OFFSET		0
+
+#define PWM0_REG_OFFSET			0
+#define PWM0_MASK_OFFSET		4
+
+#define PWM1_REG_OFFSET			8
+#define PWM1_MASK_OFFSET		12
+
+#define PWM2_REG_OFFSET			16
+#define PWM2_MASK_OFFSET		20
+
+#define PWM3_REG_OFFSET			24
+#define PWM3_MASK_OFFSET		28
+
+#define POS4_OFFSET				32
+
+#define NEXT_STEP_DATA_OFFSET 	36
+
+
+#define DELAY 1000000
+#define DESC_START	0
+#define DATA_START	4
+
+
+.macro pwm_set
+.mparam reg_offset, mask_offset
+	lbbo r10, ctrl.data, reg_offset, REG_ADDR_SIZE
+	lbbo r11, ctrl.data, mask_offset, REG_SIZE
+	sbbo r11, r10, GPIO_SET_OFFSET, REG_SIZE
+.endm
+
+.macro pwm_clear
+.mparam reg_offset, mask_offset
+	lbbo r10, ctrl.data, reg_offset, REG_ADDR_SIZE
+	lbbo r11, ctrl.data, mask_offset, REG_SIZE
+	sbbo r11, r10, GPIO_CLEAR_OFFSET, REG_SIZE
+.endm
+
+
+.struct Servo_data
+	.u32 data
+    .u8 cycle
+    .u8 step
+    .u8 servo_per_step // for now 4 servos per step 
+.ends
+
+.struct Pos4
+	.u8 s0
+	.u8 s1
+	.u8 s2
+	.u8 s3
+.ends
+.assign Pos4, r1, *, pos4			//r1
+
+.assign Servo_data, r2, *, ctrl 	//r2, r3
+									//r10 ... - internal use

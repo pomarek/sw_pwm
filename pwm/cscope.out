@@ -1,0 +1,6550 @@
+cscope 15 $HOME/uc/pwm               0000034638
+	@aaa.c
+
+	@am335x.h
+
+1 #i‚de‡
+_AM335X_H_
+
+
+2 
+	#_AM335_H_
+
+
+	)
+
+8 
+	mGPIO_REVISION
+;
+
+9 
+	m_∑d0
+[3];
+
+10 
+	mGPIO_SYSCONFIG
+;
+
+11 
+	m_∑d1
+[3];
+
+12 
+	mGPIO_EOI
+;
+
+13 
+	mGPIO_IRQSTATUS_RAW_0
+;
+
+14 
+	mGPIO_IRQSTATUS_RAW_1
+;
+
+15 
+	mGPIO_IRQSTATUS_0
+;
+
+16 
+	mGPIO_IRQSTATUS_1
+;
+
+17 
+	mGPIO_IRQSTATUS_SET_0
+;
+
+18 
+	mGPIO_IRQSTATUS_SET_1
+;
+
+19 
+	mGPIO_IRQSTATUS_CLR_0
+;
+
+20 
+	mGPIO_IRQSTATUS_CLR_1
+;
+
+21 
+	m_∑d2
+[52];
+
+22 
+	mGPIO_SYSSTATUS
+;
+
+23 
+	m_∑d3
+[6];
+
+24 
+	mGPIO_CTRL
+;
+
+25 
+	mGPIO_OE
+;
+
+26 
+	mGPIO_DATAIN
+;
+
+27 
+	mGPIO_DATAOUT
+;
+
+28 
+	mGPIO_LEVELDETECT0
+;
+
+29 
+	mGPIO_LEVELDETECT1
+;
+
+30 
+	mGPIO_RISINGDETECT
+;
+
+31 
+	mGPIO_FALLINGDETECT
+;
+
+32 
+	mGPIO_DEBOUNCENABLE
+;
+
+33 
+	mGPIO_DEBOUNCINGTIME
+;
+
+34 
+	m_∑d4
+[14];
+
+35 
+	mGPIO_CLEARDATAOUT
+;
+
+36 
+	mGPIO_SETDATAOUT
+;
+
+37 }
+	tgpio_mem_t
+;
+
+	@driver_main.c
+
+9 
+	~<löux/öô.h
+>
+
+11 
+	~<löux/moduÀ.h
+>
+
+12 
+	~<löux/kî√l.h
+>
+
+13 
+	~<löux/¶ab.h
+>
+
+14 
+	~<löux/fs.h
+>
+
+15 
+	~<löux/î∫o.h
+>
+
+16 
+	~<löux/ty≥s.h
+>
+
+17 
+	~<löux/¥oc_fs.h
+>
+
+18 
+	~<löux/f˙é.h
+>
+
+19 
+	~<asm/sy°em.h
+>
+
+20 
+	~<asm/uac˚ss.h
+>
+
+21 
+	~<löux/miscdevi˚.h
+>
+
+24 
+MODULE_LICENSE
+("Dual BSD/GPL");
+
+26 
+	#SERVO_NUM
+ 32
+
+	)
+
+27 
+	#DEF_STR
+ 256
+
+	)
+
+28 
+	#DEF_DEV_NAME
+ 50
+
+	)
+
+30 
+	#DEV_NAME
+ "so·_pwm"
+
+	)
+
+32 
+pwm_›í
+(
+öode
+ *öode, 
+fûe
+ *file);
+
+33 
+pwm_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *file);
+
+34 
+ssize_t
+ 
+pwm_ªad
+ (
+fûe
+* fûe, *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ * 
+f_pos
+);
+
+35 
+ssize_t
+ 
+pwm_wrôe
+(
+fûe
+* fûe, c⁄° *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ * 
+f_pos
+);
+
+39 c⁄° 
+	gpwm_maj‹
+ = 125;
+
+41 
+miscdevi˚
+ 
+	gpwm_dev
+[
+SERVO_NUM
+];
+
+42 
+	g«mes
+[
+SERVO_NUM
+][
+DEF_DEV_NAME
+];
+
+45 
+fûe_›î©i⁄s
+ 
+	gpwm_f›s
+ = {
+
+46 
+ow√r
+: 
+THIS_MODULE
+,
+
+47 
+ªad
+: 
+pwm_ªad
+,
+
+48 
+wrôe
+: 
+pwm_wrôe
+,
+
+49 
+›í
+: 
+pwm_›í
+,
+
+50 
+ªÀa£
+: 
+pwm_ªÀa£
+
+
+53 * 
+	gposôi⁄s
+=
+NULL
+;
+
+56 
+	$pwm_¸óã_devi˚
+(
+mö‹
+)
+
+58 
+ªt
+;
+
+59 
+	`¢¥ötf
+(
+«mes
+[
+mö‹
+], 
+DEF_DEV_NAME
+, "pwm/pwm%03d", minor);
+
+60 
+pwm_dev
+[
+mö‹
+].minor=minor;
+
+61 
+pwm_dev
+[
+mö‹
+].
+«me
+=
+«mes
+[minor];
+
+62 
+pwm_dev
+[
+mö‹
+].
+f›s
+=&
+pwm_f›s
+;
+
+63 
+ªt
+ = 
+	`misc_ªgi°î
+(&
+pwm_dev
+[
+mö‹
+]);
+
+64 i‡(
+ªt
+)
+
+65 
+	`¥ötk
+(
+KERN_ERR
+ "U«bÀÅÿªgi°îÖwm drivî mis¯devi˚ %†îr‹ %d\n", 
+«mes
+[
+mö‹
+], 
+ªt
+);
+
+66  
+ªt
+;
+
+67 
+	}
+}
+
+70 
+	$pwm_öô
+()
+
+72 
+i
+;
+
+73 
+	`¥ötk
+("<1> PWM for servo motors driver init\r\n");
+
+76 
+posôi⁄s
+ = 
+	`kmÆloc
+(
+SERVO_NUM
+, 
+GFP_KERNEL
+);
+
+77 i‡(!
+posôi⁄s
+)
+
+79  -
+ENOMEM
+;
+
+81 
+	`mem£t
+(
+posôi⁄s
+, 0, 
+SERVO_NUM
+);
+
+82 
+i
+=0; i<
+SERVO_NUM
+; i++)
+
+84 
+	`pwm_¸óã_devi˚
+(
+i
+);
+
+87 
+	}
+}
+
+91 
+	$pwm_exô
+()
+
+93 
+i
+;
+
+94 
+i
+=0; i<
+SERVO_NUM
+; i++)
+
+95 
+	`misc_dîegi°î
+(&
+pwm_dev
+[
+i
+]);
+
+100 i‡(
+posôi⁄s
+)
+
+102 
+	`k‰ì
+(
+posôi⁄s
+);
+
+104 
+	`¥ötk
+("<1> PWM for servo motors driver close\r\n");
+
+105 
+	}
+}
+
+107 
+moduÀ_öô
+(
+pwm_öô
+);
+
+108 
+moduÀ_exô
+(
+pwm_exô
+);
+
+112 
+	$pwm_›í
+(
+öode
+ *öode, 
+fûe
+ *file)
+
+114 
+mö‹
+=
+	`MINOR
+(
+öode
+->
+i_rdev
+);
+
+115 if(
+mö‹
+>=
+SERVO_NUM
+)
+
+117 
+	`¥ötk
+("<1> inc‹ª˘ id: %d \r\n", 
+mö‹
+);
+
+121 
+fûe
+->
+¥iv©e_d©a
+ = &
+posôi⁄s
+[
+mö‹
+];
+
+123 
+	}
+}
+
+125 
+	$pwm_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *file)
+
+128 
+	}
+}
+
+130 
+ssize_t
+ 
+	$pwm_ªad
+(
+fûe
+* fûe, *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ * 
+f_pos
+)
+
+132 
+tmpbuf
+[6];
+
+133 
+j
+;
+
+134 
+	`¢¥ötf
+(
+tmpbuf
+, 6, "%03d\n", *(*)
+fûe
+->
+¥iv©e_d©a
+);
+
+135 
+j
+=0; *
+f_pos
+<5 && j<
+cou¡
+; (*f_pos)++, j++)
+
+137 
+buf
+[
+j
+]=
+tmpbuf
+[*
+f_pos
+];
+
+139  
+j
+;
+
+140 
+	}
+}
+
+142 
+ssize_t
+ 
+	$pwm_wrôe
+–
+fûe
+ *fûe, c⁄° *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ *
+f_pos
+)
+
+144 
+tmpbuf
+[6];
+
+145 
+îr
+, 
+ªs
+=0;
+
+146 if(
+cou¡
+>5)
+
+149 
+	`°∫˝y
+(
+tmpbuf
+, 
+buf
+, 
+cou¡
+);
+
+150 
+tmpbuf
+[
+cou¡
+]='\0';
+
+152 
+	`¥ötk
+("<1>Çumbî %s\n", 
+tmpbuf
+);
+
+153 
+îr
+ = 
+	`k°πoöt
+(
+tmpbuf
+, 10, &
+ªs
+);
+
+154 if(
+ªs
+>=0 &&Ñes<256 &&
+îr
+ ==0)
+
+156 *((*Ë
+fûe
+->
+¥iv©e_d©a
+)=
+ªs
+;
+
+157  
+cou¡
+;
+
+159 
+	`¥ötk
+("<1> inc‹ª˘Çumbî %s\r\n", 
+tmpbuf
+);
+
+161 
+	}
+}
+
+	@pru.c
+
+1 
+	~<löux/i›‹t.h
+>
+
+2 
+	~"¥u.h
+"
+
+5 
+¥uss_mem_t
+ * 
+	g¥uss_d©a
+ = 
+NULL
+;
+
+7 
+¥u_îr‹_t
+ 
+	$¥u_öô
+()
+
+10 
+	}
+}
+
+13 
+¥uss_mem_t
+ * 
+	$¥u_gë_mem‹y_•a˚
+()
+
+15  
+¥uss_d©a
+;
+
+16 
+	}
+}
+
+18 
+	$¥u_‰ì_mem‹y
+()
+
+21 
+	}
+}
+
+23 
+¥u_îr‹_t
+ 
+	$¥u_u∂ﬂd
+(
+¥u_id_t
+ 
+id
+, * 
+d©a
+, 
+size
+)
+
+26 
+	}
+}
+
+28 
+¥u_îr‹_t
+ 
+	$¥u_run
+(
+¥u_id_t
+ 
+id
+)
+
+30 
+	}
+}
+
+32 
+¥u_îr‹_t
+ 
+	$¥u_hÆt
+(
+¥u_id_t
+ 
+id
+)
+
+35 
+	}
+}
+
+	@pru.h
+
+8 #i‚de‡
+PWM_PRU_H_
+
+
+9 
+	#PWM_PRU_H_
+
+
+	)
+
+15 
+	#PRU_INTERNAL_RAM_SIZE
+ (8*1024Ë
+
+	)
+
+16 
+	#PRU_SHARED_DATA_RAM_SIZE
+ (12*1024)
+
+	)
+
+18 
+	#PRUSS_BASE
+ 0x4A30
+_0000
+
+
+	)
+
+26 
+	mPRU_ID_PRU0
+,
+
+27 
+	mPRU_ID_PRU1
+
+
+28 }
+	t¥u_id_t
+;
+
+32 
+	mPRU_ERROR_NO_ERROR
+ = 0,
+
+33 
+	mPRU_ERROR_NOT_INITIALIZED
+,
+
+34 
+	mPRU_ERROR_PRU_NOT_RUNNING
+,
+
+35 
+	mPRU_ERROR_PRU_NOT_HALTED
+,
+
+36 
+	mPRU_ERROR_INVALID_ID
+,
+
+37 
+	mPRU_ERROR_SIZE_TO_BIG
+,
+
+38 
+	mPRU_ERROR_ALREADY_INITIALIZED
+,
+
+39 
+	mPRU_ERROR_UNKNOWN_ERROR
+
+
+40 }
+	t¥u_îr‹_t
+;
+
+47 
+	mCONTROL
+;
+
+48 
+	mSTATUS
+;
+
+49 
+	mWAKEUP
+;
+
+50 
+	mCYCLE
+;
+
+51 
+	mSTALL
+;
+
+52 
+unsig√d_öt
+ 
+	m_∑r
+[3];
+
+53 
+	mCTBIR0
+;
+
+54 
+	mCTBIR1
+;
+
+55 
+	mCTPPR0
+;
+
+56 
+	mCTPPR1
+;
+
+57 }
+	tPRUSS_PRU_CTRL_t
+;
+
+62 
+	mGPREG
+[32];
+
+63 
+	mCT_REG
+[32];
+
+64 }
+	tPRUSS_PRU_DEBUG_t
+;
+
+68 
+	mREVID
+;
+
+69 
+	m_∑r0
+[3];
+
+70 
+	mGER
+;
+
+71 
+	m_∑d1
+[2];
+
+72 
+	mGNLR
+;
+
+73 
+	mSISR
+;
+
+74 
+	mSICR
+;
+
+75 
+	mEISR
+;
+
+76 
+	mEICR
+;
+
+77 
+	m_∑d2
+[1];
+
+78 
+	mHIEISR
+;
+
+79 
+	mHIDISR
+;
+
+80 
+	m_∑d3
+[65];
+
+81 
+	mGPIR
+;
+
+82 
+	m_∑d4
+[95];
+
+83 
+	mSRSR
+[2];
+
+84 
+	m_∑d5
+[126];
+
+85 
+	mSECR
+[2];
+
+86 
+	m_∑d6
+[30];
+
+87 
+	mERS
+[2];
+
+88 
+	m_∑d7
+[126];
+
+89 
+	mECR
+[2];
+
+90 
+	m_∑d8
+[30];
+
+91 
+	mCMR
+[16];
+
+92 
+	m_∑d9
+[1008];
+
+93 
+	mHMR
+[3];
+
+94 
+	m_∑d10
+[253];
+
+95 
+	mHIPIR
+[10];
+
+96 
+	m_∑d11
+[1014];
+
+97 
+	mSIPR
+[2];
+
+98 
+	m_∑d12
+[126];
+
+99 
+	mSITR
+[2];
+
+100 
+	m_∑d13
+[222];
+
+101 
+	mHINLR
+[10];
+
+102 
+	m_∑d14
+[1014];
+
+103 
+	mHIER
+;
+
+104 }
+	tPRUSS_INTC_t
+;
+
+108 
+	mREVID
+;
+
+109 
+	mSYSCFG
+;
+
+110 
+	mGPCFG0
+;
+
+111 
+	mGPCFG1
+;
+
+112 
+	mCGR
+;
+
+113 
+	mISRP
+;
+
+114 
+	mISP
+;
+
+115 
+	mIESP
+;
+
+116 
+	mIECP
+;
+
+117 
+	mSCRP
+;
+
+118 
+	mPMAO
+;
+
+119 
+	mMII_RT
+;
+
+120 
+	mIEPCLK
+;
+
+121 
+	mSPP
+;
+
+122 
+	m_∑d
+[2];
+
+123 
+	mPIN_MX
+;
+
+124 }
+	tPRUSS_CFG_t
+;
+
+128 
+	mPRU0_d©a_øm
+[
+PRU_INTERNAL_RAM_SIZE
+];
+
+129 
+	mPRU1_d©a_øm
+[
+PRU_INTERNAL_RAM_SIZE
+];
+
+130 
+	m_∑d0
+[0x00010000 - 0x00004000];
+
+131 
+	msh¨ed_øm
+[
+PRU_SHARED_DATA_RAM_SIZE
+];
+
+132 
+	m_∑d1
+[0x00020000 -0x00010000 - 
+PRU_SHARED_DATA_RAM_SIZE
+];
+
+133 
+PRUSS_INTC_t
+ 
+	mINTC
+;
+
+134 
+	m_∑d2
+[0x00022000-0x00020000-(
+PRUSS_INTC_t
+)];
+
+135 
+PRUSS_PRU_CTRL_t
+ 
+	mPRU0_c⁄åﬁ
+;
+
+136 
+	m_∑d3
+[0x00022400-0x00022000-(
+PRUSS_PRU_CTRL_t
+)];
+
+137 
+PRUSS_PRU_DEBUG_t
+ 
+	mPRU0_debug
+;
+
+138 
+	m_∑d4
+[0x00024000-0x00022400-(
+PRUSS_PRU_DEBUG_t
+)];
+
+139 
+PRUSS_PRU_CTRL_t
+ 
+	mPRU1_c⁄åﬁ
+;
+
+140 
+	m_∑d5
+[0x00024400-0x00024000-(
+PRUSS_PRU_CTRL_t
+)];
+
+141 
+PRUSS_PRU_DEBUG_t
+ 
+	mPRU1_debug
+;
+
+142 
+	m_∑d6
+[0x00026000-0x00024400-(
+PRUSS_PRU_DEBUG_t
+)];
+
+143 
+PRUSS_CFG_t
+ 
+	mCFG
+;
+
+144 
+	m_∑d7
+[0x00028000-0x00026000-(
+PRUSS_CFG_t
+)];
+
+145 
+	mUART0
+[0x0002A000-0x00028000];
+
+146 
+	mRe£rved0
+[0x0002C000-0x0002A000];
+
+147 
+	mRe£rved1
+[0x0002E000-0x0002C000];
+
+148 
+	mIEP
+[0x00030000-0x0002E000];
+
+149 
+	meCAP0
+[0x00032000-0x00030000];
+
+150 
+	mMII_RT_CFG
+[0x00032400-0x00032000];
+
+151 
+	mMII_MDIO
+[0x00034000-0x00032400];
+
+152 
+	mPRU0_úam
+[
+PRU_INTERNAL_RAM_SIZE
+];
+
+153 
+	m∑d13
+[
+PRU_INTERNAL_RAM_SIZE
+];
+
+154 
+	mPRU1_úam
+[
+PRU_INTERNAL_RAM_SIZE
+];
+
+155 }
+	t¥uss_mem_t
+;
+
+162 
+¥u_öô
+();
+
+163 
+¥uss_mem_t
+ * 
+¥u_gë_mem‹y_•a˚
+();
+
+164 
+¥u_‰ì_mem‹y
+();
+
+165 
+¥u_u∂ﬂd
+(
+¥u_id_t
+ 
+id
+, * 
+d©a
+, 
+size
+);
+
+166 
+¥u_run
+(
+¥u_id_t
+ 
+id
+);
+
+167 
+¥u_hÆt
+(
+¥u_id_t
+ 
+id
+);
+
+	@pwm_drv.c
+
+9 
+	~<löux/öô.h
+>
+
+11 
+	~<löux/moduÀ.h
+>
+
+12 
+	~<löux/kî√l.h
+>
+
+13 
+	~<löux/¶ab.h
+>
+
+14 
+	~<löux/fs.h
+>
+
+15 
+	~<löux/î∫o.h
+>
+
+16 
+	~<löux/ty≥s.h
+>
+
+17 
+	~<löux/¥oc_fs.h
+>
+
+18 
+	~<löux/f˙é.h
+>
+
+19 
+	~<asm/sy°em.h
+>
+
+20 
+	~<asm/uac˚ss.h
+>
+
+21 
+	~<löux/miscdevi˚.h
+>
+
+22 
+	~<löux/dñay.h
+>
+
+24 
+	~"pwm_drv_hw.h
+"
+
+27 
+MODULE_LICENSE
+("Dual BSD/GPL");
+
+29 
+	#ARRAY_LEN
+(
+X
+Ë((X)/(X[0]))
+
+	)
+
+35 
+	#MINOR_SHIFT
+ 2
+
+	)
+
+37 
+	#SERVO_NUM
+ 32
+
+	)
+
+38 
+	#DEV_NAME
+ "pwm_drv/pwm%02ddev"
+
+	)
+
+39 
+	#SERVO_MIN
+ 50
+
+	)
+
+40 
+	#SERVO_MAX
+ 250
+
+	)
+
+41 
+	#SERVO_DEF
+ 150
+
+	)
+
+43 
+	#DEF_STR
+ 256
+
+	)
+
+44 
+	#DEF_DEV_NAME
+ 50
+
+	)
+
+48 
+pwm_›í
+(
+öode
+ *öode, 
+fûe
+ *file);
+
+49 
+pwm_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *file);
+
+50 
+ssize_t
+ 
+pwm_ªad
+ (
+fûe
+* fûe, *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ * 
+f_pos
+);
+
+51 
+ssize_t
+ 
+pwm_wrôe
+(
+fûe
+* fûe, c⁄° *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ * 
+f_pos
+);
+
+55 
+	m«me
+[
+DEF_DEV_NAME
+];
+
+56 
+	mposôi⁄
+;
+
+58 
+miscdevi˚
+ 
+	mdev
+;
+
+59 }
+	tdev_ch™√l_t
+;
+
+64 c⁄° 
+	gpwm_maj‹
+ = 125;
+
+69 
+fûe_›î©i⁄s
+ 
+	gpwm_f›s
+ = {
+
+70 
+ow√r
+: 
+THIS_MODULE
+,
+
+71 
+ªad
+: 
+pwm_ªad
+,
+
+72 
+wrôe
+: 
+pwm_wrôe
+,
+
+73 
+›í
+: 
+pwm_›í
+,
+
+74 
+ªÀa£
+: 
+pwm_ªÀa£
+
+
+77 
+dev_ch™√l_t
+ * 
+	g£rvo
+[
+SERVO_NUM
+];
+
+81 
+dev_ch™√l_t
+ * 
+	$pwm_¸óã_devi˚
+(
+id
+)
+
+83 
+ªt
+;
+
+84 
+dev_ch™√l_t
+ * 
+devi˚
+;
+
+86 
+devi˚
+=
+	`kmÆloc
+((
+dev_ch™√l_t
+), 
+GFP_KERNEL
+);
+
+87 
+	`mem£t
+(
+devi˚
+, 0, (
+dev_ch™√l_t
+));
+
+89 
+	`¢¥ötf
+(
+devi˚
+->
+«me
+, 
+	`ARRAY_LEN
+(devi˚->«me), 
+DEV_NAME
+, 
+id
+);
+
+90 
+devi˚
+->
+dev
+.
+mö‹
+ = 
+id
+ + 
+MINOR_SHIFT
+;
+
+91 
+devi˚
+->
+dev
+.
+«me
+ = device->name;
+
+92 
+devi˚
+->
+dev
+.
+f›s
+ = &
+pwm_f›s
+;
+
+93 
+devi˚
+->
+posôi⁄
+ = 
+SERVO_DEF
+;
+
+95 
+ªt
+ = 
+	`misc_ªgi°î
+(&(
+devi˚
+->
+dev
+));
+
+96 i‡(
+ªt
+)
+
+98 
+	`¥ötk
+(
+KERN_ERR
+ "U«bÀÅÿªgi°îÖwm drivî mis¯devi˚ %†îr‹ %d\n", 
+devi˚
+->
+«me
+, 
+ªt
+);
+
+99 
+	`k‰ì
+(
+devi˚
+);
+
+100 
+devi˚
+ = 
+NULL
+;
+
+102  
+devi˚
+;
+
+103 
+	}
+}
+
+106 
+	$pwm_öô
+()
+
+108 
+i
+;
+
+109 
+	`¥ötk
+("<1> PWM for servo motors driver init\r\n");
+
+112 
+i
+=0; i<
+SERVO_NUM
+; i++)
+
+114 
+£rvo
+[
+i
+] = 
+	`pwm_¸óã_devi˚
+(i);
+
+116 
+	`hw_öô_muxög
+();
+
+118 
+	}
+}
+
+122 
+	$pwm_exô
+()
+
+124 
+i
+;
+
+125 
+	`hw_ªÀa£_¥u
+(0);
+
+126 
+i
+=0; i<
+SERVO_NUM
+; i++)
+
+128 if(
+£rvo
+[
+i
+] !
+NULL
+)
+
+130 
+	`misc_dîegi°î
+(&(
+£rvo
+[
+i
+]->
+dev
+));
+
+131 
+	`k‰ì
+(
+£rvo
+[
+i
+]);
+
+132 
+£rvo
+[
+i
+] = 
+NULL
+;
+
+135 
+	`¥ötk
+("<1> PWM for servo motors driver close\r\n");
+
+136 
+	}
+}
+
+138 
+moduÀ_öô
+(
+pwm_öô
+);
+
+139 
+moduÀ_exô
+(
+pwm_exô
+);
+
+143 
+	$pwm_›í
+(
+öode
+ *öode, 
+fûe
+ *file)
+
+145 
+id
+ = 
+	`MINOR
+(
+öode
+->
+i_rdev
+Ë- 
+MINOR_SHIFT
+;
+
+147 if(
+id
+ >
+SERVO_NUM
+)
+
+149 
+	`¥ötk
+("<1> inc‹ª˘ id: %d \r\n", 
+id
+);
+
+153 
+fûe
+->
+¥iv©e_d©a
+ = 
+£rvo
+[
+id
+];
+
+155 
+	}
+}
+
+157 
+	$pwm_ªÀa£
+(
+öode
+ *öode, 
+fûe
+ *file)
+
+160 
+	}
+}
+
+162 
+ssize_t
+ 
+	$pwm_ªad
+(
+fûe
+* fûe, *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ * 
+f_pos
+)
+
+164 
+tmpbuf
+[6];
+
+165 
+dev_ch™√l_t
+ * 
+devi˚
+;
+
+166 
+j
+;
+
+168 
+devi˚
+ = (
+dev_ch™√l_t
+*)(
+fûe
+->
+¥iv©e_d©a
+);
+
+169 if(
+devi˚
+ =
+NULL
+)
+
+171 
+	`¥ötk
+("<1> deviceÇot initialized\r\n");
+
+174 
+	`¢¥ötf
+(
+tmpbuf
+, 6, "%03d\n", 
+devi˚
+->
+posôi⁄
+);
+
+175 
+j
+=0; *
+f_pos
+<5 && j<
+cou¡
+; (*f_pos)++, j++)
+
+177 
+buf
+[
+j
+]=
+tmpbuf
+[*
+f_pos
+];
+
+179  
+j
+;
+
+180 
+	}
+}
+
+182 
+ssize_t
+ 
+	$pwm_wrôe
+–
+fûe
+ *fûe, c⁄° *
+buf
+, 
+size_t
+ 
+cou¡
+, 
+loff_t
+ *
+f_pos
+)
+
+184 
+tmpbuf
+[6];
+
+185 
+îr
+, 
+ªs
+=0;
+
+186 
+dev_ch™√l_t
+ * 
+devi˚
+;
+
+188 if(
+cou¡
+>5)
+
+191 
+	`°∫˝y
+(
+tmpbuf
+, 
+buf
+, 
+cou¡
+);
+
+192 
+tmpbuf
+[
+cou¡
+]='\0';
+
+194 
+îr
+ = 
+	`k°πoöt
+(
+tmpbuf
+, 10, &
+ªs
+);
+
+195 if(
+ªs
+ >
+SERVO_MIN
+ &&Ñe†<
+SERVO_MAX
+ && 
+îr
+ == 0)
+
+197 
+devi˚
+ = (
+dev_ch™√l_t
+*)(
+fûe
+->
+¥iv©e_d©a
+);
+
+198 
+devi˚
+->
+posôi⁄
+ = 
+ªs
+;
+
+199 if(
+ªs
+>100)
+
+200 
+	`hw_u∂ﬂd_¥u
+(0,0,0);
+
+202 
+	`hw_hÆt_¥u
+(0);
+
+203  
+cou¡
+;
+
+205 
+	`¥ötk
+("<1> inc‹ª˘Çumbî %s\r\n", 
+tmpbuf
+);
+
+207 
+	}
+}
+
+	@pwm_drv_hw.c
+
+1 
+	~<löux/kî√l.h
+>
+
+2 
+	~<löux/i›‹t.h
+>
+
+3 
+	~<löux/io.h
+>
+
+5 
+	~"pwm_drv_hw.h
+"
+
+6 
+	~"am335x.h
+"
+
+8 
+	#IONAME
+ "pwm_pös"
+
+	)
+
+10 
+gpio_mem_t
+ * 
+hw_gë_gpio_b™k
+(
+ba£
+);
+
+11 
+‰ì_gpio_b™k
+(
+gpio_mem_t
+ *
+gpio_b™k
+, 
+ba£
+);
+
+15 
+gpio_mem_t
+ * 
+	gb™k1
+;
+
+17 
+	$hw_öô_muxög
+()
+
+19 
+b™k1
+=
+	`hw_gë_gpio_b™k
+(
+AM33XX_GPIO1_BASE
+);
+
+21 
+	}
+}
+
+23 
+	$hw_u∂ﬂd_¥u
+(
+¥u_id_t
+ 
+¥u
+, * 
+d©a
+, 
+d©a_size
+)
+
+25 if(
+b™k1
+)
+
+26 
+b™k1
+->
+GPIO_SETDATAOUT
+ = 3<<22;
+
+28 
+	}
+}
+
+30 
+	$hw_ªÀa£_¥u
+(
+¥u_id_t
+ 
+¥u
+)
+
+32 
+	`‰ì_gpio_b™k
+(
+b™k1
+, 
+AM33XX_GPIO1_BASE
+);
+
+34 
+	}
+}
+
+36 
+	$hw_hÆt_¥u
+(
+¥u_id_t
+ 
+¥u
+)
+
+38 if(
+b™k1
+)
+
+39 
+b™k1
+->
+GPIO_CLEARDATAOUT
+ = 3<<22;
+
+41 
+	}
+}
+
+44 
+gpio_mem_t
+ * 
+	$hw_gë_gpio_b™k
+(
+ba£
+)
+
+46 
+gpio_mem_t
+ * 
+gpio
+;
+
+47 if–
+	`ªque°_mem_ªgi⁄
+(
+ba£
+, (
+gpio_mem_t
+), 
+IONAME
+Ë=
+NULL
+ )
+
+49 
+	`¥ötk
+–
+KERN_ALERT
+ "u«bÀÅÿobèöÑegi⁄ %p\r\n", (*)
+ba£
+);
+
+50  
+NULL
+;
+
+53 
+gpio
+ = (
+gpio_mem_t
+*Ë
+	`i‹em≠_noˇche
+(
+ba£
+, (gpio_mem_t));
+
+54  
+gpio
+;
+
+55 
+	}
+}
+
+57 
+	$‰ì_gpio_b™k
+(
+gpio_mem_t
+ *
+gpio_b™k
+, 
+ba£
+)
+
+59 
+	`iounm≠
+(
+gpio_b™k
+);
+
+60 
+	`ªÀa£_mem_ªgi⁄
+(
+ba£
+, (
+gpio_mem_t
+));
+
+61 
+	}
+}
+
+	@pwm_drv_hw.h
+
+1 #i‚de‡
+PWM_DRV_HW_H
+
+
+2 
+	#PWM_DRV_HW_H
+
+
+	)
+
+6 
+	mHW_PRU0
+,
+
+7 
+	mHW_PRU1
+,
+
+8 
+	mHW_INVALID
+
+
+9 }
+	t¥u_id_t
+;
+
+12 
+hw_öô_muxög
+();
+
+13 
+hw_u∂ﬂd_¥u
+(
+¥u_id_t
+ 
+¥u
+, * 
+d©a
+, 
+d©a_size
+);
+
+14 
+hw_ªÀa£_¥u
+(
+¥u_id_t
+ 
+¥u
+);
+
+15 
+hw_hÆt_¥u
+(
+¥u_id_t
+ 
+¥u
+);
+
+	@/usr/include/linux/errno.h
+
+1 #i‚de‡
+_LINUX_ERRNO_H
+
+
+2 
+	#_LINUX_ERRNO_H
+
+
+	)
+
+4 
+	~<asm/î∫o.h
+>
+
+	@/usr/include/linux/fcntl.h
+
+1 #i‚de‡
+_LINUX_FCNTL_H
+
+
+2 
+	#_LINUX_FCNTL_H
+
+
+	)
+
+4 
+	~<asm/f˙é.h
+>
+
+6 
+	#F_SETLEASE
+ (
+F_LINUX_SPECIFIC_BASE
+ + 0)
+
+	)
+
+7 
+	#F_GETLEASE
+ (
+F_LINUX_SPECIFIC_BASE
+ + 1)
+
+	)
+
+13 
+	#F_CANCELLK
+ (
+F_LINUX_SPECIFIC_BASE
+ + 5)
+
+	)
+
+16 
+	#F_DUPFD_CLOEXEC
+ (
+F_LINUX_SPECIFIC_BASE
+ + 6)
+
+	)
+
+22 
+	#F_NOTIFY
+ (
+F_LINUX_SPECIFIC_BASE
++2)
+
+	)
+
+27 
+	#F_SETPIPE_SZ
+ (
+F_LINUX_SPECIFIC_BASE
+ + 7)
+
+	)
+
+28 
+	#F_GETPIPE_SZ
+ (
+F_LINUX_SPECIFIC_BASE
+ + 8)
+
+	)
+
+33 
+	#DN_ACCESS
+ 0x00000001
+
+	)
+
+34 
+	#DN_MODIFY
+ 0x00000002
+
+	)
+
+35 
+	#DN_CREATE
+ 0x00000004
+
+	)
+
+36 
+	#DN_DELETE
+ 0x00000008
+
+	)
+
+37 
+	#DN_RENAME
+ 0x00000010
+
+	)
+
+38 
+	#DN_ATTRIB
+ 0x00000020
+
+	)
+
+39 
+	#DN_MULTISHOT
+ 0x80000000
+
+	)
+
+41 
+	#AT_FDCWD
+ -100
+
+	)
+
+44 
+	#AT_SYMLINK_NOFOLLOW
+ 0x100
+
+	)
+
+45 
+	#AT_REMOVEDIR
+ 0x200
+
+	)
+
+47 
+	#AT_SYMLINK_FOLLOW
+ 0x400
+
+	)
+
+	@/usr/include/linux/fs.h
+
+1 #i‚de‡
+_LINUX_FS_H
+
+
+2 
+	#_LINUX_FS_H
+
+
+	)
+
+9 
+	~<löux/limôs.h
+>
+
+10 
+	~<löux/io˘l.h
+>
+
+23 #unde‡
+NR_OPEN
+
+
+24 
+	#INR_OPEN
+ 1024
+
+	)
+
+26 
+	#BLOCK_SIZE_BITS
+ 10
+
+	)
+
+27 
+	#BLOCK_SIZE
+ (1<<
+BLOCK_SIZE_BITS
+)
+
+	)
+
+29 
+	#SEEK_SET
+ 0
+
+	)
+
+30 
+	#SEEK_CUR
+ 1
+
+	)
+
+31 
+	#SEEK_END
+ 2
+
+	)
+
+32 
+	#SEEK_MAX
+ 
+SEEK_END
+
+
+	)
+
+35 
+	sfûes_°©_°ru˘
+ {
+
+36 
+	mƒ_fûes
+;
+
+37 
+	mƒ_‰ì_fûes
+;
+
+38 
+	mmax_fûes
+;
+
+41 
+	söodes_°©_t
+ {
+
+42 
+	mƒ_öodes
+;
+
+43 
+	mƒ_unu£d
+;
+
+44 
+	mdummy
+[5];
+
+48 
+	#NR_FILE
+ 8192
+
+	)
+
+50 
+	#MAY_EXEC
+ 1
+
+	)
+
+51 
+	#MAY_WRITE
+ 2
+
+	)
+
+52 
+	#MAY_READ
+ 4
+
+	)
+
+53 
+	#MAY_APPEND
+ 8
+
+	)
+
+54 
+	#MAY_ACCESS
+ 16
+
+	)
+
+55 
+	#MAY_OPEN
+ 32
+
+	)
+
+63 
+	#FMODE_READ
+ ((
+fmode_t
+)0x1)
+
+	)
+
+65 
+	#FMODE_WRITE
+ ((
+fmode_t
+)0x2)
+
+	)
+
+67 
+	#FMODE_LSEEK
+ ((
+fmode_t
+)0x4)
+
+	)
+
+69 
+	#FMODE_PREAD
+ ((
+fmode_t
+)0x8)
+
+	)
+
+71 
+	#FMODE_PWRITE
+ ((
+fmode_t
+)0x10)
+
+	)
+
+73 
+	#FMODE_EXEC
+ ((
+fmode_t
+)0x20)
+
+	)
+
+75 
+	#FMODE_NDELAY
+ ((
+fmode_t
+)0x40)
+
+	)
+
+77 
+	#FMODE_EXCL
+ ((
+fmode_t
+)0x80)
+
+	)
+
+80 
+	#FMODE_WRITE_IOCTL
+ ((
+fmode_t
+)0x100)
+
+	)
+
+88 
+	#FMODE_NOCMTIME
+ ((
+fmode_t
+)0x800)
+
+	)
+
+91 
+	#FMODE_RANDOM
+ ((
+fmode_t
+)0x1000)
+
+	)
+
+147 
+	#RW_MASK
+ 1
+
+	)
+
+148 
+	#RWA_MASK
+ 16
+
+	)
+
+149 
+	#READ
+ 0
+
+	)
+
+150 
+	#WRITE
+ 1
+
+	)
+
+151 
+	#READA
+ 16
+
+	)
+
+152 
+	#SWRITE
+ 17
+
+	)
+
+153 
+	#READ_SYNC
+ (
+READ
+ | (1 << 
+BIO_RW_SYNCIO
+Ë| (1 << 
+BIO_RW_UNPLUG
+))
+
+	)
+
+154 
+	#READ_META
+ (
+READ
+ | (1 << 
+BIO_RW_META
+))
+
+	)
+
+155 
+	#WRITE_SYNC_PLUG
+ (
+WRITE
+ | (1 << 
+BIO_RW_SYNCIO
+Ë| (1 << 
+BIO_RW_NOIDLE
+))
+
+	)
+
+156 
+	#WRITE_SYNC
+ (
+WRITE_SYNC_PLUG
+ | (1 << 
+BIO_RW_UNPLUG
+))
+
+	)
+
+157 
+	#WRITE_ODIRECT_PLUG
+ (
+WRITE
+ | (1 << 
+BIO_RW_SYNCIO
+))
+
+	)
+
+158 
+	#WRITE_META
+ (
+WRITE
+ | (1 << 
+BIO_RW_META
+))
+
+	)
+
+159 
+	#SWRITE_SYNC_PLUG
+ \
+
+160 (
+SWRITE
+ | (1 << 
+BIO_RW_SYNCIO
+Ë| (1 << 
+BIO_RW_NOIDLE
+))
+
+	)
+
+161 
+	#SWRITE_SYNC
+ (
+SWRITE_SYNC_PLUG
+ | (1 << 
+BIO_RW_UNPLUG
+))
+
+	)
+
+162 
+	#WRITE_BARRIER
+ (
+WRITE
+ | (1 << 
+BIO_RW_BARRIER
+))
+
+	)
+
+168 
+	#DISCARD_NOBARRIER
+ (
+WRITE
+ | (1 << 
+BIO_RW_DISCARD
+))
+
+	)
+
+169 
+	#DISCARD_BARRIER
+ (
+DISCARD_NOBARRIER
+ | (1 << 
+BIO_RW_BARRIER
+))
+
+	)
+
+171 
+	#SEL_IN
+ 1
+
+	)
+
+172 
+	#SEL_OUT
+ 2
+
+	)
+
+173 
+	#SEL_EX
+ 4
+
+	)
+
+176 
+	#FS_REQUIRES_DEV
+ 1
+
+	)
+
+177 
+	#FS_BINARY_MOUNTDATA
+ 2
+
+	)
+
+178 
+	#FS_HAS_SUBTYPE
+ 4
+
+	)
+
+179 
+	#FS_REVAL_DOT
+ 16384
+
+	)
+
+180 
+	#FS_RENAME_DOES_D_MOVE
+ 32768
+
+	)
+
+187 
+	#MS_RDONLY
+ 1
+
+	)
+
+188 
+	#MS_NOSUID
+ 2
+
+	)
+
+189 
+	#MS_NODEV
+ 4
+
+	)
+
+190 
+	#MS_NOEXEC
+ 8
+
+	)
+
+191 
+	#MS_SYNCHRONOUS
+ 16
+
+	)
+
+192 
+	#MS_REMOUNT
+ 32
+
+	)
+
+193 
+	#MS_MANDLOCK
+ 64
+
+	)
+
+194 
+	#MS_DIRSYNC
+ 128
+
+	)
+
+195 
+	#MS_NOATIME
+ 1024
+
+	)
+
+196 
+	#MS_NODIRATIME
+ 2048
+
+	)
+
+197 
+	#MS_BIND
+ 4096
+
+	)
+
+198 
+	#MS_MOVE
+ 8192
+
+	)
+
+199 
+	#MS_REC
+ 16384
+
+	)
+
+200 
+	#MS_VERBOSE
+ 32768
+
+	)
+
+202 
+	#MS_SILENT
+ 32768
+
+	)
+
+203 
+	#MS_POSIXACL
+ (1<<16Ë
+
+	)
+
+204 
+	#MS_UNBINDABLE
+ (1<<17Ë
+
+	)
+
+205 
+	#MS_PRIVATE
+ (1<<18Ë
+
+	)
+
+206 
+	#MS_SLAVE
+ (1<<19Ë
+
+	)
+
+207 
+	#MS_SHARED
+ (1<<20Ë
+
+	)
+
+208 
+	#MS_RELATIME
+ (1<<21Ë
+
+	)
+
+209 
+	#MS_KERNMOUNT
+ (1<<22Ë
+
+	)
+
+210 
+	#MS_I_VERSION
+ (1<<23Ë
+
+	)
+
+211 
+	#MS_STRICTATIME
+ (1<<24Ë
+
+	)
+
+212 
+	#MS_BORN
+ (1<<29)
+
+	)
+
+213 
+	#MS_ACTIVE
+ (1<<30)
+
+	)
+
+214 
+	#MS_NOUSER
+ (1<<31)
+
+	)
+
+219 
+	#MS_RMT_MASK
+ (
+MS_RDONLY
+|
+MS_SYNCHRONOUS
+|
+MS_MANDLOCK
+|
+MS_I_VERSION
+)
+
+	)
+
+224 
+	#MS_MGC_VAL
+ 0xC0ED0000
+
+	)
+
+225 
+	#MS_MGC_MSK
+ 0xffff0000
+
+	)
+
+229 
+	#S_SYNC
+ 1
+
+	)
+
+230 
+	#S_NOATIME
+ 2
+
+	)
+
+231 
+	#S_APPEND
+ 4
+
+	)
+
+232 
+	#S_IMMUTABLE
+ 8
+
+	)
+
+233 
+	#S_DEAD
+ 16
+
+	)
+
+234 
+	#S_NOQUOTA
+ 32
+
+	)
+
+235 
+	#S_DIRSYNC
+ 64
+
+	)
+
+236 
+	#S_NOCMTIME
+ 128
+
+	)
+
+237 
+	#S_SWAPFILE
+ 256
+
+	)
+
+238 
+	#S_PRIVATE
+ 512
+
+	)
+
+253 
+	#__IS_FLG
+(
+öode
+,
+Êg
+Ë((öode)->
+i_sb
+->
+s_Êags
+ & (Êg))
+
+	)
+
+255 
+	#IS_RDONLY
+(
+öode
+Ë((öode)->
+i_sb
+->
+s_Êags
+ & 
+MS_RDONLY
+)
+
+	)
+
+256 
+	#IS_SYNC
+(
+öode
+Ë(
+	`__IS_FLG
+(öode, 
+MS_SYNCHRONOUS
+) || \
+
+257 ((
+öode
+)->
+i_Êags
+ & 
+S_SYNC
+))
+
+	)
+
+258 
+	#IS_DIRSYNC
+(
+öode
+Ë(
+	`__IS_FLG
+(öode, 
+MS_SYNCHRONOUS
+|
+MS_DIRSYNC
+) || \
+
+259 ((
+öode
+)->
+i_Êags
+ & (
+S_SYNC
+|
+S_DIRSYNC
+)))
+
+	)
+
+260 
+	#IS_MANDLOCK
+(
+öode
+Ë
+	`__IS_FLG
+(öode, 
+MS_MANDLOCK
+)
+
+	)
+
+261 
+	#IS_NOATIME
+(
+öode
+Ë
+	`__IS_FLG
+(öode, 
+MS_RDONLY
+|
+MS_NOATIME
+)
+
+	)
+
+262 
+	#IS_I_VERSION
+(
+öode
+Ë
+	`__IS_FLG
+(öode, 
+MS_I_VERSION
+)
+
+	)
+
+264 
+	#IS_NOQUOTA
+(
+öode
+Ë((öode)->
+i_Êags
+ & 
+S_NOQUOTA
+)
+
+	)
+
+265 
+	#IS_APPEND
+(
+öode
+Ë((öode)->
+i_Êags
+ & 
+S_APPEND
+)
+
+	)
+
+266 
+	#IS_IMMUTABLE
+(
+öode
+Ë((öode)->
+i_Êags
+ & 
+S_IMMUTABLE
+)
+
+	)
+
+267 
+	#IS_POSIXACL
+(
+öode
+Ë
+	`__IS_FLG
+(öode, 
+MS_POSIXACL
+)
+
+	)
+
+269 
+	#IS_DEADDIR
+(
+öode
+Ë((öode)->
+i_Êags
+ & 
+S_DEAD
+)
+
+	)
+
+270 
+	#IS_NOCMTIME
+(
+öode
+Ë((öode)->
+i_Êags
+ & 
+S_NOCMTIME
+)
+
+	)
+
+271 
+	#IS_SWAPFILE
+(
+öode
+Ë((öode)->
+i_Êags
+ & 
+S_SWAPFILE
+)
+
+	)
+
+272 
+	#IS_PRIVATE
+(
+öode
+Ë((öode)->
+i_Êags
+ & 
+S_PRIVATE
+)
+
+	)
+
+277 
+	#BLKROSET
+ 
+	`_IO
+(0x12,93Ë
+
+	)
+
+278 
+	#BLKROGET
+ 
+	`_IO
+(0x12,94Ë
+
+	)
+
+279 
+	#BLKRRPART
+ 
+	`_IO
+(0x12,95Ë
+
+	)
+
+280 
+	#BLKGETSIZE
+ 
+	`_IO
+(0x12,96Ë
+
+	)
+
+281 
+	#BLKFLSBUF
+ 
+	`_IO
+(0x12,97Ë
+
+	)
+
+282 
+	#BLKRASET
+ 
+	`_IO
+(0x12,98Ë
+
+	)
+
+283 
+	#BLKRAGET
+ 
+	`_IO
+(0x12,99Ë
+
+	)
+
+284 
+	#BLKFRASET
+ 
+	`_IO
+(0x12,100)
+
+	)
+
+285 
+	#BLKFRAGET
+ 
+	`_IO
+(0x12,101)
+
+	)
+
+286 
+	#BLKSECTSET
+ 
+	`_IO
+(0x12,102)
+
+	)
+
+287 
+	#BLKSECTGET
+ 
+	`_IO
+(0x12,103)
+
+	)
+
+288 
+	#BLKSSZGET
+ 
+	`_IO
+(0x12,104)
+
+	)
+
+290 
+	#BLKPG
+ 
+	`_IO
+(0x12,105)
+
+	)
+
+294 
+	#BLKELVGET
+ 
+	`_IOR
+(0x12,106,
+size_t
+)
+
+	)
+
+295 
+	#BLKELVSET
+ 
+	`_IOW
+(0x12,107,
+size_t
+)
+
+	)
+
+300 
+	#BLKBSZGET
+ 
+	`_IOR
+(0x12,112,
+size_t
+)
+
+	)
+
+301 
+	#BLKBSZSET
+ 
+	`_IOW
+(0x12,113,
+size_t
+)
+
+	)
+
+302 
+	#BLKGETSIZE64
+ 
+	`_IOR
+(0x12,114,
+size_t
+Ë
+
+	)
+
+303 
+	#BLKTRACESETUP
+ 
+	`_IOWR
+(0x12,115,
+blk_u£r_åa˚_£tup
+)
+
+	)
+
+304 
+	#BLKTRACESTART
+ 
+	`_IO
+(0x12,116)
+
+	)
+
+305 
+	#BLKTRACESTOP
+ 
+	`_IO
+(0x12,117)
+
+	)
+
+306 
+	#BLKTRACETEARDOWN
+ 
+	`_IO
+(0x12,118)
+
+	)
+
+307 
+	#BLKDISCARD
+ 
+	`_IO
+(0x12,119)
+
+	)
+
+308 
+	#BLKIOMIN
+ 
+	`_IO
+(0x12,120)
+
+	)
+
+309 
+	#BLKIOOPT
+ 
+	`_IO
+(0x12,121)
+
+	)
+
+310 
+	#BLKALIGNOFF
+ 
+	`_IO
+(0x12,122)
+
+	)
+
+311 
+	#BLKPBSZGET
+ 
+	`_IO
+(0x12,123)
+
+	)
+
+312 
+	#BLKDISCARDZEROES
+ 
+	`_IO
+(0x12,124)
+
+	)
+
+314 
+	#BMAP_IOCTL
+ 1
+
+	)
+
+315 
+	#FIBMAP
+ 
+	`_IO
+(0x00,1Ë
+
+	)
+
+316 
+	#FIGETBSZ
+ 
+	`_IO
+(0x00,2Ë
+
+	)
+
+317 
+	#FIFREEZE
+ 
+	`_IOWR
+('X', 119, Ë
+
+	)
+
+318 
+	#FITHAW
+ 
+	`_IOWR
+('X', 120, Ë
+
+	)
+
+320 
+	#FS_IOC_GETFLAGS
+ 
+	`_IOR
+('f', 1, )
+
+	)
+
+321 
+	#FS_IOC_SETFLAGS
+ 
+	`_IOW
+('f', 2, )
+
+	)
+
+322 
+	#FS_IOC_GETVERSION
+ 
+	`_IOR
+('v', 1, )
+
+	)
+
+323 
+	#FS_IOC_SETVERSION
+ 
+	`_IOW
+('v', 2, )
+
+	)
+
+324 
+	#FS_IOC_FIEMAP
+ 
+	`_IOWR
+('f', 11, 
+fõm≠
+)
+
+	)
+
+325 
+	#FS_IOC32_GETFLAGS
+ 
+	`_IOR
+('f', 1, )
+
+	)
+
+326 
+	#FS_IOC32_SETFLAGS
+ 
+	`_IOW
+('f', 2, )
+
+	)
+
+327 
+	#FS_IOC32_GETVERSION
+ 
+	`_IOR
+('v', 1, )
+
+	)
+
+328 
+	#FS_IOC32_SETVERSION
+ 
+	`_IOW
+('v', 2, )
+
+	)
+
+333 
+	#FS_SECRM_FL
+ 0x00000001
+
+	)
+
+334 
+	#FS_UNRM_FL
+ 0x00000002
+
+	)
+
+335 
+	#FS_COMPR_FL
+ 0x00000004
+
+	)
+
+336 
+	#FS_SYNC_FL
+ 0x00000008
+
+	)
+
+337 
+	#FS_IMMUTABLE_FL
+ 0x00000010
+
+	)
+
+338 
+	#FS_APPEND_FL
+ 0x00000020
+
+	)
+
+339 
+	#FS_NODUMP_FL
+ 0x00000040
+
+	)
+
+340 
+	#FS_NOATIME_FL
+ 0x00000080
+
+	)
+
+342 
+	#FS_DIRTY_FL
+ 0x00000100
+
+	)
+
+343 
+	#FS_COMPRBLK_FL
+ 0x00000200
+
+	)
+
+344 
+	#FS_NOCOMP_FL
+ 0x00000400
+
+	)
+
+345 
+	#FS_ECOMPR_FL
+ 0x00000800
+
+	)
+
+347 
+	#FS_BTREE_FL
+ 0x00001000
+
+	)
+
+348 
+	#FS_INDEX_FL
+ 0x00001000
+
+	)
+
+349 
+	#FS_IMAGIC_FL
+ 0x00002000
+
+	)
+
+350 
+	#FS_JOURNAL_DATA_FL
+ 0x00004000
+
+	)
+
+351 
+	#FS_NOTAIL_FL
+ 0x00008000
+
+	)
+
+352 
+	#FS_DIRSYNC_FL
+ 0x00010000
+
+	)
+
+353 
+	#FS_TOPDIR_FL
+ 0x00020000
+
+	)
+
+354 
+	#FS_EXTENT_FL
+ 0x00080000
+
+	)
+
+355 
+	#FS_DIRECTIO_FL
+ 0x00100000
+
+	)
+
+356 
+	#FS_RESERVED_FL
+ 0x80000000
+
+	)
+
+358 
+	#FS_FL_USER_VISIBLE
+ 0x0003DFFF
+
+	)
+
+359 
+	#FS_FL_USER_MODIFIABLE
+ 0x000380FF
+
+	)
+
+362 
+	#SYNC_FILE_RANGE_WAIT_BEFORE
+ 1
+
+	)
+
+363 
+	#SYNC_FILE_RANGE_WRITE
+ 2
+
+	)
+
+364 
+	#SYNC_FILE_RANGE_WAIT_AFTER
+ 4
+
+	)
+
+	@/usr/include/linux/kernel.h
+
+1 #i‚de‡
+_LINUX_KERNEL_H
+
+
+2 
+	#_LINUX_KERNEL_H
+
+
+	)
+
+7 
+	#__ALIGN_KERNEL
+(
+x
+, 
+a
+Ë
+	`__ALIGN_KERNEL_MASK
+(x, (
+	`ty≥of
+(x))◊Ë- 1)
+
+	)
+
+8 
+	#__ALIGN_KERNEL_MASK
+(
+x
+, 
+mask
+Ë(((xË+ (mask)Ë& ~(mask))
+
+	)
+
+12 
+	#SI_LOAD_SHIFT
+ 16
+
+	)
+
+13 
+	ssysöfo
+ {
+
+14 
+	mu±ime
+;
+
+15 
+	mlﬂds
+[3];
+
+16 
+	mtŸÆøm
+;
+
+17 
+	m‰ìøm
+;
+
+18 
+	msh¨edøm
+;
+
+19 
+	mbuf„ºam
+;
+
+20 
+	mtŸÆsw≠
+;
+
+21 
+	m‰ìsw≠
+;
+
+22 
+	m¥ocs
+;
+
+23 
+	m∑d
+;
+
+24 
+	mtŸÆhigh
+;
+
+25 
+	m‰ìhigh
+;
+
+26 
+	mmem_unô
+;
+
+27 
+	m_f
+[20-2*()-()];
+
+31 
+	#BUILD_BUG_ON
+(
+c⁄dôi⁄
+Ë(()
+	`BUILD_BUG_ON_ZERO
+(c⁄dôi⁄))
+
+	)
+
+34 
+	#MAYBE_BUILD_BUG_ON
+(
+c⁄d
+Ë(()([1 - 2 * !!(c⁄d)]))
+
+	)
+
+37 
+	#BUILD_BUG_ON_NOT_POWER_OF_2
+(
+n
+) \
+
+38 
+	`BUILD_BUG_ON
+((
+n
+Ë=0 || ((“Ë& (“Ë- 1)Ë!0))
+
+	)
+
+44 
+	#BUILD_BUG_ON_ZERO
+(
+e
+Ë((°ru˘ { :-!!”); }))
+
+	)
+
+45 
+	#BUILD_BUG_ON_NULL
+(
+e
+Ë((*)(°ru˘ { :-!!”); }))
+
+	)
+
+48 
+	#__FUNCTION__
+ (
+__func__
+)
+
+	)
+
+51 #ifde‡
+CONFIG_NUMA
+
+
+52 
+	#NUMA_BUILD
+ 1
+
+	)
+
+54 
+	#NUMA_BUILD
+ 0
+
+	)
+
+58 #ifde‡
+CONFIG_FTRACE_MCOUNT_RECORD
+
+
+59 
+	#REBUILD_DUE_TO_FTRACE_MCOUNT_RECORD
+
+
+	)
+
+	@/usr/include/linux/types.h
+
+1 #i‚de‡
+_LINUX_TYPES_H
+
+
+2 
+	#_LINUX_TYPES_H
+
+
+	)
+
+4 
+	~<asm/ty≥s.h
+>
+
+6 #i‚de‡
+__ASSEMBLY__
+
+
+8 
+	~<löux/posix_ty≥s.h
+>
+
+16 #ifde‡
+__CHECKER__
+
+
+17 
+	#__bôwi£__
+ 
+	`__©åibuã__
+((
+bôwi£
+))
+
+	)
+
+19 
+	#__bôwi£__
+
+
+	)
+
+21 #ifde‡
+__CHECK_ENDIAN__
+
+
+22 
+	#__bôwi£
+ 
+__bôwi£__
+
+
+	)
+
+24 
+	#__bôwi£
+
+
+	)
+
+27 
+__u16
+ 
+	t__bôwi£
+ 
+	t__À16
+;
+
+28 
+__u16
+ 
+	t__bôwi£
+ 
+	t__be16
+;
+
+29 
+__u32
+ 
+	t__bôwi£
+ 
+	t__À32
+;
+
+30 
+__u32
+ 
+	t__bôwi£
+ 
+	t__be32
+;
+
+31 
+__u64
+ 
+	t__bôwi£
+ 
+	t__À64
+;
+
+32 
+__u64
+ 
+	t__bôwi£
+ 
+	t__be64
+;
+
+34 
+__u16
+ 
+	t__bôwi£
+ 
+	t__sum16
+;
+
+35 
+__u32
+ 
+	t__bôwi£
+ 
+	t__wsum
+;
+
+	@/usr/include/asm/errno.h
+
+1 
+	~<asm-gíîic/î∫o.h
+>
+
+	@/usr/include/asm/fcntl.h
+
+1 
+	~<asm-gíîic/f˙é.h
+>
+
+	@/usr/include/asm/types.h
+
+1 #i‚de‡
+_ASM_X86_TYPES_H
+
+
+2 
+	#_ASM_X86_TYPES_H
+
+
+	)
+
+4 
+	#dma_addr_t
+ 
+dma_addr_t
+
+
+	)
+
+6 
+	~<asm-gíîic/ty≥s.h
+>
+
+	@/usr/include/linux/ioctl.h
+
+1 #i‚de‡
+_LINUX_IOCTL_H
+
+
+2 
+	#_LINUX_IOCTL_H
+
+
+	)
+
+4 
+	~<asm/io˘l.h
+>
+
+	@/usr/include/linux/limits.h
+
+1 #i‚de‡
+_LINUX_LIMITS_H
+
+
+2 
+	#_LINUX_LIMITS_H
+
+
+	)
+
+4 
+	#NR_OPEN
+ 1024
+
+	)
+
+6 
+	#NGROUPS_MAX
+ 65536
+
+	)
+
+7 
+	#ARG_MAX
+ 131072
+
+	)
+
+8 
+	#LINK_MAX
+ 127
+
+	)
+
+9 
+	#MAX_CANON
+ 255
+
+	)
+
+10 
+	#MAX_INPUT
+ 255
+
+	)
+
+11 
+	#NAME_MAX
+ 255
+
+	)
+
+12 
+	#PATH_MAX
+ 4096
+
+	)
+
+13 
+	#PIPE_BUF
+ 4096
+
+	)
+
+14 
+	#XATTR_NAME_MAX
+ 255
+
+	)
+
+15 
+	#XATTR_SIZE_MAX
+ 65536
+
+	)
+
+16 
+	#XATTR_LIST_MAX
+ 65536
+
+	)
+
+18 
+	#RTSIG_MAX
+ 32
+
+	)
+
+	@/usr/include/linux/posix_types.h
+
+1 #i‚de‡
+_LINUX_POSIX_TYPES_H
+
+
+2 
+	#_LINUX_POSIX_TYPES_H
+
+
+	)
+
+4 
+	~<löux/°ddef.h
+>
+
+21 #unde‡
+__NFDBITS
+
+
+22 
+	#__NFDBITS
+ (8 * ())
+
+	)
+
+24 #unde‡
+__FD_SETSIZE
+
+
+25 
+	#__FD_SETSIZE
+ 1024
+
+	)
+
+27 #unde‡
+__FDSET_LONGS
+
+
+28 
+	#__FDSET_LONGS
+ (
+__FD_SETSIZE
+/
+__NFDBITS
+)
+
+	)
+
+30 #unde‡
+__FDELT
+
+
+31 
+	#__FDELT
+(
+d
+Ë((dË/ 
+__NFDBITS
+)
+
+	)
+
+33 #unde‡
+__FDMASK
+
+
+34 
+	#__FDMASK
+(
+d
+Ë(1UL << ((dË% 
+__NFDBITS
+))
+
+	)
+
+37 
+	mfds_bôs
+ [
+__FDSET_LONGS
+];
+
+38 } 
+	t__kî√l_fd_£t
+;
+
+41 (*
+	t__kî√l_sigh™dÀr_t
+)();
+
+44 
+	t__kî√l_key_t
+;
+
+45 
+	t__kî√l_mqd_t
+;
+
+47 
+	~<asm/posix_ty≥s.h
+>
+
+	@/usr/include/asm-generic/errno.h
+
+1 #i‚de‡
+_ASM_GENERIC_ERRNO_H
+
+
+2 
+	#_ASM_GENERIC_ERRNO_H
+
+
+	)
+
+4 
+	~<asm-gíîic/î∫o-ba£.h
+>
+
+6 
+	#EDEADLK
+ 35
+
+	)
+
+7 
+	#ENAMETOOLONG
+ 36
+
+	)
+
+8 
+	#ENOLCK
+ 37
+
+	)
+
+9 
+	#ENOSYS
+ 38
+
+	)
+
+10 
+	#ENOTEMPTY
+ 39
+
+	)
+
+11 
+	#ELOOP
+ 40
+
+	)
+
+12 
+	#EWOULDBLOCK
+ 
+EAGAIN
+
+
+	)
+
+13 
+	#ENOMSG
+ 42
+
+	)
+
+14 
+	#EIDRM
+ 43
+
+	)
+
+15 
+	#ECHRNG
+ 44
+
+	)
+
+16 
+	#EL2NSYNC
+ 45
+
+	)
+
+17 
+	#EL3HLT
+ 46
+
+	)
+
+18 
+	#EL3RST
+ 47
+
+	)
+
+19 
+	#ELNRNG
+ 48
+
+	)
+
+20 
+	#EUNATCH
+ 49
+
+	)
+
+21 
+	#ENOCSI
+ 50
+
+	)
+
+22 
+	#EL2HLT
+ 51
+
+	)
+
+23 
+	#EBADE
+ 52
+
+	)
+
+24 
+	#EBADR
+ 53
+
+	)
+
+25 
+	#EXFULL
+ 54
+
+	)
+
+26 
+	#ENOANO
+ 55
+
+	)
+
+27 
+	#EBADRQC
+ 56
+
+	)
+
+28 
+	#EBADSLT
+ 57
+
+	)
+
+30 
+	#EDEADLOCK
+ 
+EDEADLK
+
+
+	)
+
+32 
+	#EBFONT
+ 59
+
+	)
+
+33 
+	#ENOSTR
+ 60
+
+	)
+
+34 
+	#ENODATA
+ 61
+
+	)
+
+35 
+	#ETIME
+ 62
+
+	)
+
+36 
+	#ENOSR
+ 63
+
+	)
+
+37 
+	#ENONET
+ 64
+
+	)
+
+38 
+	#ENOPKG
+ 65
+
+	)
+
+39 
+	#EREMOTE
+ 66
+
+	)
+
+40 
+	#ENOLINK
+ 67
+
+	)
+
+41 
+	#EADV
+ 68
+
+	)
+
+42 
+	#ESRMNT
+ 69
+
+	)
+
+43 
+	#ECOMM
+ 70
+
+	)
+
+44 
+	#EPROTO
+ 71
+
+	)
+
+45 
+	#EMULTIHOP
+ 72
+
+	)
+
+46 
+	#EDOTDOT
+ 73
+
+	)
+
+47 
+	#EBADMSG
+ 74
+
+	)
+
+48 
+	#EOVERFLOW
+ 75
+
+	)
+
+49 
+	#ENOTUNIQ
+ 76
+
+	)
+
+50 
+	#EBADFD
+ 77
+
+	)
+
+51 
+	#EREMCHG
+ 78
+
+	)
+
+52 
+	#ELIBACC
+ 79
+
+	)
+
+53 
+	#ELIBBAD
+ 80
+
+	)
+
+54 
+	#ELIBSCN
+ 81
+
+	)
+
+55 
+	#ELIBMAX
+ 82
+
+	)
+
+56 
+	#ELIBEXEC
+ 83
+
+	)
+
+57 
+	#EILSEQ
+ 84
+
+	)
+
+58 
+	#ERESTART
+ 85
+
+	)
+
+59 
+	#ESTRPIPE
+ 86
+
+	)
+
+60 
+	#EUSERS
+ 87
+
+	)
+
+61 
+	#ENOTSOCK
+ 88
+
+	)
+
+62 
+	#EDESTADDRREQ
+ 89
+
+	)
+
+63 
+	#EMSGSIZE
+ 90
+
+	)
+
+64 
+	#EPROTOTYPE
+ 91
+
+	)
+
+65 
+	#ENOPROTOOPT
+ 92
+
+	)
+
+66 
+	#EPROTONOSUPPORT
+ 93
+
+	)
+
+67 
+	#ESOCKTNOSUPPORT
+ 94
+
+	)
+
+68 
+	#EOPNOTSUPP
+ 95
+
+	)
+
+69 
+	#EPFNOSUPPORT
+ 96
+
+	)
+
+70 
+	#EAFNOSUPPORT
+ 97
+
+	)
+
+71 
+	#EADDRINUSE
+ 98
+
+	)
+
+72 
+	#EADDRNOTAVAIL
+ 99
+
+	)
+
+73 
+	#ENETDOWN
+ 100
+
+	)
+
+74 
+	#ENETUNREACH
+ 101
+
+	)
+
+75 
+	#ENETRESET
+ 102
+
+	)
+
+76 
+	#ECONNABORTED
+ 103
+
+	)
+
+77 
+	#ECONNRESET
+ 104
+
+	)
+
+78 
+	#ENOBUFS
+ 105
+
+	)
+
+79 
+	#EISCONN
+ 106
+
+	)
+
+80 
+	#ENOTCONN
+ 107
+
+	)
+
+81 
+	#ESHUTDOWN
+ 108
+
+	)
+
+82 
+	#ETOOMANYREFS
+ 109
+
+	)
+
+83 
+	#ETIMEDOUT
+ 110
+
+	)
+
+84 
+	#ECONNREFUSED
+ 111
+
+	)
+
+85 
+	#EHOSTDOWN
+ 112
+
+	)
+
+86 
+	#EHOSTUNREACH
+ 113
+
+	)
+
+87 
+	#EALREADY
+ 114
+
+	)
+
+88 
+	#EINPROGRESS
+ 115
+
+	)
+
+89 
+	#ESTALE
+ 116
+
+	)
+
+90 
+	#EUCLEAN
+ 117
+
+	)
+
+91 
+	#ENOTNAM
+ 118
+
+	)
+
+92 
+	#ENAVAIL
+ 119
+
+	)
+
+93 
+	#EISNAM
+ 120
+
+	)
+
+94 
+	#EREMOTEIO
+ 121
+
+	)
+
+95 
+	#EDQUOT
+ 122
+
+	)
+
+97 
+	#ENOMEDIUM
+ 123
+
+	)
+
+98 
+	#EMEDIUMTYPE
+ 124
+
+	)
+
+99 
+	#ECANCELED
+ 125
+
+	)
+
+100 
+	#ENOKEY
+ 126
+
+	)
+
+101 
+	#EKEYEXPIRED
+ 127
+
+	)
+
+102 
+	#EKEYREVOKED
+ 128
+
+	)
+
+103 
+	#EKEYREJECTED
+ 129
+
+	)
+
+106 
+	#EOWNERDEAD
+ 130
+
+	)
+
+107 
+	#ENOTRECOVERABLE
+ 131
+
+	)
+
+109 
+	#ERFKILL
+ 132
+
+	)
+
+	@/usr/include/asm-generic/fcntl.h
+
+1 #i‚de‡
+_ASM_GENERIC_FCNTL_H
+
+
+2 
+	#_ASM_GENERIC_FCNTL_H
+
+
+	)
+
+4 
+	~<löux/ty≥s.h
+>
+
+6 
+	#O_ACCMODE
+ 00000003
+
+	)
+
+7 
+	#O_RDONLY
+ 00000000
+
+	)
+
+8 
+	#O_WRONLY
+ 00000001
+
+	)
+
+9 
+	#O_RDWR
+ 00000002
+
+	)
+
+10 #i‚de‡
+O_CREAT
+
+
+11 
+	#O_CREAT
+ 00000100
+
+	)
+
+13 #i‚de‡
+O_EXCL
+
+
+14 
+	#O_EXCL
+ 00000200
+
+	)
+
+16 #i‚de‡
+O_NOCTTY
+
+
+17 
+	#O_NOCTTY
+ 00000400
+
+	)
+
+19 #i‚de‡
+O_TRUNC
+
+
+20 
+	#O_TRUNC
+ 00001000
+
+	)
+
+22 #i‚de‡
+O_APPEND
+
+
+23 
+	#O_APPEND
+ 00002000
+
+	)
+
+25 #i‚de‡
+O_NONBLOCK
+
+
+26 
+	#O_NONBLOCK
+ 00004000
+
+	)
+
+28 #i‚de‡
+O_DSYNC
+
+
+29 
+	#O_DSYNC
+ 00010000
+
+	)
+
+31 #i‚de‡
+FASYNC
+
+
+32 
+	#FASYNC
+ 00020000
+
+	)
+
+34 #i‚de‡
+O_DIRECT
+
+
+35 
+	#O_DIRECT
+ 00040000
+
+	)
+
+37 #i‚de‡
+O_LARGEFILE
+
+
+38 
+	#O_LARGEFILE
+ 00100000
+
+	)
+
+40 #i‚de‡
+O_DIRECTORY
+
+
+41 
+	#O_DIRECTORY
+ 00200000
+
+	)
+
+43 #i‚de‡
+O_NOFOLLOW
+
+
+44 
+	#O_NOFOLLOW
+ 00400000
+
+	)
+
+46 #i‚de‡
+O_NOATIME
+
+
+47 
+	#O_NOATIME
+ 01000000
+
+	)
+
+49 #i‚de‡
+O_CLOEXEC
+
+
+50 
+	#O_CLOEXEC
+ 02000000
+
+	)
+
+66 #i‚de‡
+O_SYNC
+
+
+67 
+	#__O_SYNC
+ 04000000
+
+	)
+
+68 
+	#O_SYNC
+ (
+__O_SYNC
+|
+O_DSYNC
+)
+
+	)
+
+71 #i‚de‡
+O_NDELAY
+
+
+72 
+	#O_NDELAY
+ 
+O_NONBLOCK
+
+
+	)
+
+75 
+	#F_DUPFD
+ 0
+
+	)
+
+76 
+	#F_GETFD
+ 1
+
+	)
+
+77 
+	#F_SETFD
+ 2
+
+	)
+
+78 
+	#F_GETFL
+ 3
+
+	)
+
+79 
+	#F_SETFL
+ 4
+
+	)
+
+80 #i‚de‡
+F_GETLK
+
+
+81 
+	#F_GETLK
+ 5
+
+	)
+
+82 
+	#F_SETLK
+ 6
+
+	)
+
+83 
+	#F_SETLKW
+ 7
+
+	)
+
+85 #i‚de‡
+F_SETOWN
+
+
+86 
+	#F_SETOWN
+ 8
+
+	)
+
+87 
+	#F_GETOWN
+ 9
+
+	)
+
+89 #i‚de‡
+F_SETSIG
+
+
+90 
+	#F_SETSIG
+ 10
+
+	)
+
+91 
+	#F_GETSIG
+ 11
+
+	)
+
+94 #i‚de‡
+CONFIG_64BIT
+
+
+95 #i‚de‡
+F_GETLK64
+
+
+96 
+	#F_GETLK64
+ 12
+
+	)
+
+97 
+	#F_SETLK64
+ 13
+
+	)
+
+98 
+	#F_SETLKW64
+ 14
+
+	)
+
+102 #i‚de‡
+F_SETOWN_EX
+
+
+103 
+	#F_SETOWN_EX
+ 15
+
+	)
+
+104 
+	#F_GETOWN_EX
+ 16
+
+	)
+
+107 
+	#F_OWNER_TID
+ 0
+
+	)
+
+108 
+	#F_OWNER_PID
+ 1
+
+	)
+
+109 
+	#F_OWNER_PGRP
+ 2
+
+	)
+
+111 
+	sf_ow√r_ex
+ {
+
+112 
+	mty≥
+;
+
+113 
+pid_t
+ 
+	mpid
+;
+
+117 
+	#FD_CLOEXEC
+ 1
+
+	)
+
+120 #i‚de‡
+F_RDLCK
+
+
+121 
+	#F_RDLCK
+ 0
+
+	)
+
+122 
+	#F_WRLCK
+ 1
+
+	)
+
+123 
+	#F_UNLCK
+ 2
+
+	)
+
+127 #i‚de‡
+F_EXLCK
+
+
+128 
+	#F_EXLCK
+ 4
+
+	)
+
+129 
+	#F_SHLCK
+ 8
+
+	)
+
+133 #i‚de‡
+F_INPROGRESS
+
+
+134 
+	#F_INPROGRESS
+ 16
+
+	)
+
+138 
+	#LOCK_SH
+ 1
+
+	)
+
+139 
+	#LOCK_EX
+ 2
+
+	)
+
+140 
+	#LOCK_NB
+ 4
+
+	)
+
+142 
+	#LOCK_UN
+ 8
+
+	)
+
+144 
+	#LOCK_MAND
+ 32
+
+	)
+
+145 
+	#LOCK_READ
+ 64
+
+	)
+
+146 
+	#LOCK_WRITE
+ 128
+
+	)
+
+147 
+	#LOCK_RW
+ 192
+
+	)
+
+149 
+	#F_LINUX_SPECIFIC_BASE
+ 1024
+
+	)
+
+151 #i‚de‡
+HAVE_ARCH_STRUCT_FLOCK
+
+
+152 #i‚de‡
+__ARCH_FLOCK_PAD
+
+
+153 
+	#__ARCH_FLOCK_PAD
+
+
+	)
+
+156 
+	sÊock
+ {
+
+157 
+	ml_ty≥
+;
+
+158 
+	ml_whí˚
+;
+
+159 
+__kî√l_off_t
+ 
+	ml_°¨t
+;
+
+160 
+__kî√l_off_t
+ 
+	ml_Àn
+;
+
+161 
+__kî√l_pid_t
+ 
+	ml_pid
+;
+
+162 
+	m__ARCH_FLOCK_PAD
+
+
+166 #i‚de‡
+CONFIG_64BIT
+
+
+168 #i‚de‡
+HAVE_ARCH_STRUCT_FLOCK64
+
+
+169 #i‚de‡
+__ARCH_FLOCK64_PAD
+
+
+170 
+	#__ARCH_FLOCK64_PAD
+
+
+	)
+
+173 
+	sÊock64
+ {
+
+174 
+	ml_ty≥
+;
+
+175 
+	ml_whí˚
+;
+
+176 
+__kî√l_loff_t
+ 
+	ml_°¨t
+;
+
+177 
+__kî√l_loff_t
+ 
+	ml_Àn
+;
+
+178 
+__kî√l_pid_t
+ 
+	ml_pid
+;
+
+179 
+	m__ARCH_FLOCK64_PAD
+
+
+	@/usr/include/asm-generic/types.h
+
+1 #i‚de‡
+_ASM_GENERIC_TYPES_H
+
+
+2 
+	#_ASM_GENERIC_TYPES_H
+
+
+	)
+
+7 
+	~<asm-gíîic/öt-Œ64.h
+>
+
+9 #i‚de‡
+__ASSEMBLY__
+
+
+11 
+	tumode_t
+;
+
+	@/usr/include/asm/ioctl.h
+
+1 
+	~<asm-gíîic/io˘l.h
+>
+
+	@/usr/include/asm/posix_types.h
+
+1 #ifde‡
+__i386__
+
+
+2 
+	~"posix_ty≥s_32.h
+"
+
+4 
+	~"posix_ty≥s_64.h
+"
+
+	@/usr/include/linux/stddef.h
+
+1 #i‚de‡
+_LINUX_STDDEF_H
+
+
+2 
+	#_LINUX_STDDEF_H
+
+
+	)
+
+6 #unde‡
+NULL
+
+
+7 #i‡
+deföed
+(
+__˝lu•lus
+)
+
+8 
+	#NULL
+ 0
+
+	)
+
+10 
+	#NULL
+ ((*)0)
+
+	)
+
+	@/usr/include/asm-generic/errno-base.h
+
+1 #i‚de‡
+_ASM_GENERIC_ERRNO_BASE_H
+
+
+2 
+	#_ASM_GENERIC_ERRNO_BASE_H
+
+
+	)
+
+4 
+	#EPERM
+ 1
+
+	)
+
+5 
+	#ENOENT
+ 2
+
+	)
+
+6 
+	#ESRCH
+ 3
+
+	)
+
+7 
+	#EINTR
+ 4
+
+	)
+
+8 
+	#EIO
+ 5
+
+	)
+
+9 
+	#ENXIO
+ 6
+
+	)
+
+10 
+	#E2BIG
+ 7
+
+	)
+
+11 
+	#ENOEXEC
+ 8
+
+	)
+
+12 
+	#EBADF
+ 9
+
+	)
+
+13 
+	#ECHILD
+ 10
+
+	)
+
+14 
+	#EAGAIN
+ 11
+
+	)
+
+15 
+	#ENOMEM
+ 12
+
+	)
+
+16 
+	#EACCES
+ 13
+
+	)
+
+17 
+	#EFAULT
+ 14
+
+	)
+
+18 
+	#ENOTBLK
+ 15
+
+	)
+
+19 
+	#EBUSY
+ 16
+
+	)
+
+20 
+	#EEXIST
+ 17
+
+	)
+
+21 
+	#EXDEV
+ 18
+
+	)
+
+22 
+	#ENODEV
+ 19
+
+	)
+
+23 
+	#ENOTDIR
+ 20
+
+	)
+
+24 
+	#EISDIR
+ 21
+
+	)
+
+25 
+	#EINVAL
+ 22
+
+	)
+
+26 
+	#ENFILE
+ 23
+
+	)
+
+27 
+	#EMFILE
+ 24
+
+	)
+
+28 
+	#ENOTTY
+ 25
+
+	)
+
+29 
+	#ETXTBSY
+ 26
+
+	)
+
+30 
+	#EFBIG
+ 27
+
+	)
+
+31 
+	#ENOSPC
+ 28
+
+	)
+
+32 
+	#ESPIPE
+ 29
+
+	)
+
+33 
+	#EROFS
+ 30
+
+	)
+
+34 
+	#EMLINK
+ 31
+
+	)
+
+35 
+	#EPIPE
+ 32
+
+	)
+
+36 
+	#EDOM
+ 33
+
+	)
+
+37 
+	#ERANGE
+ 34
+
+	)
+
+	@/usr/include/asm-generic/int-ll64.h
+
+8 #i‚de‡
+_ASM_GENERIC_INT_LL64_H
+
+
+9 
+	#_ASM_GENERIC_INT_LL64_H
+
+
+	)
+
+11 
+	~<asm/bô•îl⁄g.h
+>
+
+13 #i‚de‡
+__ASSEMBLY__
+
+
+19 
+__sig√d__
+ 
+	t__s8
+;
+
+20 
+	t__u8
+;
+
+22 
+__sig√d__
+ 
+	t__s16
+;
+
+23 
+	t__u16
+;
+
+25 
+__sig√d__
+ 
+	t__s32
+;
+
+26 
+	t__u32
+;
+
+28 #ifde‡
+__GNUC__
+
+
+29 
+__exãnsi⁄__
+ 
+__sig√d__
+ 
+	t__s64
+;
+
+30 
+__exãnsi⁄__
+ 
+	t__u64
+;
+
+32 
+__sig√d__
+ 
+	t__s64
+;
+
+33 
+	t__u64
+;
+
+	@/usr/include/asm-generic/ioctl.h
+
+1 #i‚de‡
+_ASM_GENERIC_IOCTL_H
+
+
+2 
+	#_ASM_GENERIC_IOCTL_H
+
+
+	)
+
+22 
+	#_IOC_NRBITS
+ 8
+
+	)
+
+23 
+	#_IOC_TYPEBITS
+ 8
+
+	)
+
+30 #i‚de‡
+_IOC_SIZEBITS
+
+
+31 
+	#_IOC_SIZEBITS
+ 14
+
+	)
+
+34 #i‚de‡
+_IOC_DIRBITS
+
+
+35 
+	#_IOC_DIRBITS
+ 2
+
+	)
+
+38 
+	#_IOC_NRMASK
+ ((1 << 
+_IOC_NRBITS
+)-1)
+
+	)
+
+39 
+	#_IOC_TYPEMASK
+ ((1 << 
+_IOC_TYPEBITS
+)-1)
+
+	)
+
+40 
+	#_IOC_SIZEMASK
+ ((1 << 
+_IOC_SIZEBITS
+)-1)
+
+	)
+
+41 
+	#_IOC_DIRMASK
+ ((1 << 
+_IOC_DIRBITS
+)-1)
+
+	)
+
+43 
+	#_IOC_NRSHIFT
+ 0
+
+	)
+
+44 
+	#_IOC_TYPESHIFT
+ (
+_IOC_NRSHIFT
++
+_IOC_NRBITS
+)
+
+	)
+
+45 
+	#_IOC_SIZESHIFT
+ (
+_IOC_TYPESHIFT
++
+_IOC_TYPEBITS
+)
+
+	)
+
+46 
+	#_IOC_DIRSHIFT
+ (
+_IOC_SIZESHIFT
++
+_IOC_SIZEBITS
+)
+
+	)
+
+53 #i‚de‡
+_IOC_NONE
+
+
+54 
+	#_IOC_NONE
+ 0U
+
+	)
+
+57 #i‚de‡
+_IOC_WRITE
+
+
+58 
+	#_IOC_WRITE
+ 1U
+
+	)
+
+61 #i‚de‡
+_IOC_READ
+
+
+62 
+	#_IOC_READ
+ 2U
+
+	)
+
+65 
+	#_IOC
+(
+dú
+,
+ty≥
+,
+ƒ
+,
+size
+) \
+
+66 (((
+dú
+Ë<< 
+_IOC_DIRSHIFT
+) | \
+
+67 ((
+ty≥
+Ë<< 
+_IOC_TYPESHIFT
+) | \
+
+68 ((
+ƒ
+Ë<< 
+_IOC_NRSHIFT
+) | \
+
+69 ((
+size
+Ë<< 
+_IOC_SIZESHIFT
+))
+
+	)
+
+71 
+	#_IOC_TYPECHECK
+(
+t
+Ë(—))
+
+	)
+
+74 
+	#_IO
+(
+ty≥
+,
+ƒ
+Ë
+	`_IOC
+(
+_IOC_NONE
+,—y≥),“r),0)
+
+	)
+
+75 
+	#_IOR
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+,—y≥),“r),(
+	`_IOC_TYPECHECK
+(size)))
+
+	)
+
+76 
+	#_IOW
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_WRITE
+,—y≥),“r),(
+	`_IOC_TYPECHECK
+(size)))
+
+	)
+
+77 
+	#_IOWR
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+|
+_IOC_WRITE
+,—y≥),“r),(
+	`_IOC_TYPECHECK
+(size)))
+
+	)
+
+78 
+	#_IOR_BAD
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+,—y≥),“r),(size))
+
+	)
+
+79 
+	#_IOW_BAD
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_WRITE
+,—y≥),“r),(size))
+
+	)
+
+80 
+	#_IOWR_BAD
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+|
+_IOC_WRITE
+,—y≥),“r),(size))
+
+	)
+
+83 
+	#_IOC_DIR
+(
+ƒ
+Ë((“rË>> 
+_IOC_DIRSHIFT
+Ë& 
+_IOC_DIRMASK
+)
+
+	)
+
+84 
+	#_IOC_TYPE
+(
+ƒ
+Ë((“rË>> 
+_IOC_TYPESHIFT
+Ë& 
+_IOC_TYPEMASK
+)
+
+	)
+
+85 
+	#_IOC_NR
+(
+ƒ
+Ë((“rË>> 
+_IOC_NRSHIFT
+Ë& 
+_IOC_NRMASK
+)
+
+	)
+
+86 
+	#_IOC_SIZE
+(
+ƒ
+Ë((“rË>> 
+_IOC_SIZESHIFT
+Ë& 
+_IOC_SIZEMASK
+)
+
+	)
+
+90 
+	#IOC_IN
+ (
+_IOC_WRITE
+ << 
+_IOC_DIRSHIFT
+)
+
+	)
+
+91 
+	#IOC_OUT
+ (
+_IOC_READ
+ << 
+_IOC_DIRSHIFT
+)
+
+	)
+
+92 
+	#IOC_INOUT
+ ((
+_IOC_WRITE
+|
+_IOC_READ
+Ë<< 
+_IOC_DIRSHIFT
+)
+
+	)
+
+93 
+	#IOCSIZE_MASK
+ (
+_IOC_SIZEMASK
+ << 
+_IOC_SIZESHIFT
+)
+
+	)
+
+94 
+	#IOCSIZE_SHIFT
+ (
+_IOC_SIZESHIFT
+)
+
+	)
+
+	@/usr/include/asm/bitsperlong.h
+
+1 #i‚de‡
+__ASM_X86_BITSPERLONG_H
+
+
+2 
+	#__ASM_X86_BITSPERLONG_H
+
+
+	)
+
+4 #ifde‡
+__x86_64__
+
+
+5 
+	#__BITS_PER_LONG
+ 64
+
+	)
+
+7 
+	#__BITS_PER_LONG
+ 32
+
+	)
+
+10 
+	~<asm-gíîic/bô•îl⁄g.h
+>
+
+	@/usr/include/asm-generic/bitsperlong.h
+
+1 #i‚de‡
+__ASM_GENERIC_BITS_PER_LONG
+
+
+2 
+	#__ASM_GENERIC_BITS_PER_LONG
+
+
+	)
+
+11 #i‚de‡
+__BITS_PER_LONG
+
+
+12 
+	#__BITS_PER_LONG
+ 32
+
+	)
+
+	@
+1
+.
+1
+/usr/include
+30
+733
+aaa.c
+am335x.h
+driver_main.c
+pru.c
+pru.h
+pwm_drv.c
+pwm_drv_hw.c
+pwm_drv_hw.h
+/usr/include/linux/errno.h
+/usr/include/linux/fcntl.h
+/usr/include/linux/fs.h
+/usr/include/linux/kernel.h
+/usr/include/linux/types.h
+/usr/include/asm/errno.h
+/usr/include/asm/fcntl.h
+/usr/include/asm/types.h
+/usr/include/linux/ioctl.h
+/usr/include/linux/limits.h
+/usr/include/linux/posix_types.h
+/usr/include/asm-generic/errno.h
+/usr/include/asm-generic/fcntl.h
+/usr/include/asm-generic/types.h
+/usr/include/asm/ioctl.h
+/usr/include/asm/posix_types.h
+/usr/include/linux/stddef.h
+/usr/include/asm-generic/errno-base.h
+/usr/include/asm-generic/int-ll64.h
+/usr/include/asm-generic/ioctl.h
+/usr/include/asm/bitsperlong.h
+/usr/include/asm-generic/bitsperlong.h
