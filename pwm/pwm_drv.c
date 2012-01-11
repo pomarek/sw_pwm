@@ -54,7 +54,7 @@ typedef struct
 {
 	char 			name[DEF_DEV_NAME];
 	unsigned char 		position;
-	/* todo: gpio */
+	unsigned char 		id;
 	struct miscdevice 	dev;	
 }dev_channel_t;
 
@@ -91,6 +91,7 @@ dev_channel_t * pwm_create_device(int id)
 	device->dev.name 	= device->name;
 	device->dev.fops 	= &pwm_fops;
 	device->position	= SERVO_DEF;
+	device->id			= id;
 
 	ret = misc_register(&(device->dev));
         if (ret)
@@ -199,6 +200,7 @@ ssize_t pwm_write( struct file *file, const char *buf, size_t count, loff_t *f_p
 	{
 		device = (dev_channel_t*)(file->private_data);
 		device->position = res;
+		hw_set_pos(device->id, device->position);
 		return count;
 	}
 	printk(KERN_WARNING "incorrect number %s\r\n", tmpbuf);
