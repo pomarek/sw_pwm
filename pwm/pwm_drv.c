@@ -15,8 +15,6 @@
 #include <linux/types.h> /* size_t */
 #include <linux/proc_fs.h>
 #include <linux/fcntl.h> /* O_ACCMODE */
-#include <asm-generic/system.h> /* cli(), *_flags */
-#include <asm-generic/uaccess.h> /* copy_from/to_user */
 #include <linux/miscdevice.h>
 #include <linux/delay.h>
 
