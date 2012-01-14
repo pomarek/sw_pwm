@@ -7,7 +7,6 @@
 
 /* Necessary includes for device drivers */
 #include <linux/init.h>
-//#include <linux/config.h>
 #include <linux/module.h>
 #include <linux/kernel.h> /* printk() */
 #include <linux/slab.h> /* kmalloc() */
@@ -16,8 +15,8 @@
 #include <linux/types.h> /* size_t */
 #include <linux/proc_fs.h>
 #include <linux/fcntl.h> /* O_ACCMODE */
-#include <asm/system.h> /* cli(), *_flags */
-#include <asm/uaccess.h> /* copy_from/to_user */
+#include <asm-generic/system.h> /* cli(), *_flags */
+#include <asm-generic/uaccess.h> /* copy_from/to_user */
 #include <linux/miscdevice.h>
 #include <linux/delay.h>
 
