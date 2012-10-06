@@ -40,10 +40,10 @@ COMPILATION:
 5(OPTIONAL). You can update Makefile with your bone IP address and destination dir, put ssh keys on the bone and type "make". The module will be compiled, uploaded to the bone and installed automatically.
 
 USAGE:
-1. If the optional step of the compilation was not performed, copy pwmd.ko to your BeagleBone memory card and type in the BeagleBone console "insmod path_to_module/pwmd.ko".
+1. If the optional step for the compilation was not performed, copy pwmd.ko to your BeagleBone memory card and type in the BeagleBone console "insmod path_to_module/pwmd.ko".
 2. /dev/pwm_drv contains all the pwm devices.
-3. Writing to /dev/pwm_drv/pwmXXdev value 50 - 250 set the PWM active time to 0.5ms - 2.5ms (position) for servo XX.
-4. Reading from /dev/pwm_drv/pwmXXdev returns current active time for servo XX.
+3. Writing the value 50 - 250 to /dev/pwm_drv/pwmXXdev sets the PWM active time to 0.5ms - 2.5ms for servo XX.
+4. Reading from /dev/pwm_drv/pwmXXdev returns the current active time for servo XX.
 5. Enable/Disable - TODO
 	
 
