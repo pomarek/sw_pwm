@@ -44,7 +44,7 @@ USAGE:
 2. /dev/pwm_drv contains all the pwm devices.
 3. Writing to /dev/pwm_drv/pwmXXdev value 50 - 250 set the PWM active time to 0.5ms - 2.5ms (position) for servo XX.
 4. Reading from /dev/pwm_drv/pwmXXdev returns current active time for servo XX.
-5. Eable/Disable - TODO
+5. Enable/Disable - TODO
 	
 
 
