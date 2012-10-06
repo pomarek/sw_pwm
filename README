@@ -3,7 +3,7 @@ Hi:)
 UWAGA/WARNING/ADVERTENCIA/ACHTUNG:
 Code still in development, use at your own risk.
 
-This repo contains BeagleBone Linux PWM driver for servo controll source code. It is capable of controlling up to 32(and probably even 64 or more after minor code changes - however there are not enough pins and imagine how much current would it require) servo motors. It generates 20ms long wave with 0.5 to 2.5ms(200steps, 10us per step) active time.
+This repo contains BeagleBone Linux PWM driver for servo control source code. It is capable of controlling up to 32(and probably even 64 or more after minor code changes - however, there are not enough pins and imagine how much current would it require) servo motors. It generates 20ms long wave with 0.5 to 2.5ms(200 steps, 10us per step) active time.
 The driver works on two cores:
 - ARM - controls enable and disable pins, manages devices in /dev and processes data from the user, initializes pinmuxes etc.
 - PRU 0 - responsible for pwm generation - runs in an infinite loop switching pin state. Uses ecap 0 for time base generation.
@@ -17,14 +17,14 @@ SoC subsystems required:
 Work done:
 - PRU software(complete): ecap config, interrupt config, pwm generation
 - /dev pwm devices creation, read/write operation handling
-- pinmux, gpio dir configuration (not tested, until I get my hands on logic analizer:) )
-- Pru initialization, software download
+- pinmux, gpio dir configuration (not tested, until I get my hands on a logic analizer:) )
+- PRU initialization, software download
 - arm->pru communication
 
-Work todo:
+Work to do:
 - /dev enable/disable devices
-- GPIO Subsystem power and clock management (currently driver assumes that all gpio's used are powered and clocked correctly)
-- move bone IP address and destination dir from makefile to makefile.inc
+- GPIO Subsystem power and clock management (currently driver assumes that all gpios used are powered and clocked correctly)
+- move BeagleBone's IP address and destination dir from Makefile to makefile.inc
 - code cleanup:)
 - code comments:)
 
@@ -33,14 +33,14 @@ Future:
 
 
 COMPILATION:
-1. After downloading the source copy or move makefile.inc one directory above the source code(ie. cp makefile.inc ../)
-2. Edit makefile.inc so that MY_COMPILER points to your arm compiler(same that was used to compile the kernel) and MY_SOURCE points to your kernel source
-3. Make sure that you have pasm compiler directory in your PATH. (pasm can be downloaded from ti.com)
-4. In the module source directory type "make build"
-5(OPTIONAL). You can update Makefile with your bone ip address and destination dir, put ssh keys on the bone and type "make". The module will be compiled uploaded to the bone and installed automatically
+1. After downloading the source copy or move the makefile.inc to the directory above the source code(ie. "cp makefile.inc ../").
+2. Edit makefile.inc so that MY_COMPILER points to your ARM compiler(the same that was used to compile the kernel) and MY_SOURCE points to your kernel source.
+3. Make sure that you have the pasm compiler directory in your PATH. (pasm can be downloaded from ti.com)
+4. Type "make build" in the module source directory".
+5(OPTIONAL). You can update Makefile with your bone IP address and destination dir, put ssh keys on the bone and type "make". The module will be compiled, uploaded to the bone and installed automatically.
 
 USAGE:
-1. if optional step of compilation was not performed, copy pwmd.ko to your BeagleBone memory card and on the bone type "insmod path_to_module/pwmd.ko".
+1. If the optional step of the compilation was not performed, copy pwmd.ko to your BeagleBone memory card and type in the BeagleBone console "insmod path_to_module/pwmd.ko".
 2. /dev/pwm_drv contains all the pwm devices.
 3. Writing to /dev/pwm_drv/pwmXXdev value 50 - 250 set the PWM active time to 0.5ms - 2.5ms (position) for servo XX.
 4. Reading from /dev/pwm_drv/pwmXXdev returns current active time for servo XX.
