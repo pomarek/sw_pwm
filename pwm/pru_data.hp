@@ -20,9 +20,24 @@
 #define NEXT_STEP_DATA_OFFSET 	36
 
 
-#define DELAY 1000000
-#define DESC_START	0
-#define DATA_START	4
+
+#define DESC_START				0
+#define DATA_START				4
+
+
+#define PRU_CTRL_BASE			0x00022000
+#define CYCLE_REG 				(PRU_CTRL_BASE + 0x0C)
+
+#define TIMER_BASE				0x4804A000
+#define PRU_TIMER_INT   		TIMER_BASE + 0x28
+#define PRU_TIMER_INT_BIT		1
+#define PRU_TIMER_INT_CLEAR		(1<<PRU_TIMER_INT_BIT)
+
+//#define TICK_TIME				200
+//#define CTR_CLEAR_TIME  		6
+//#define DELAY 					(TICK_TIME - CTR_CLEAR_TIME)
+
+
 
 
 .macro pwm_set

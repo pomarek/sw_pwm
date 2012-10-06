@@ -26,9 +26,6 @@ MODULE_LICENSE("Dual BSD/GPL");
 #define ARRAY_LEN(X) (sizeof(X)/sizeof(X[0]))
 
 
-
-
-
 #define MINOR_SHIFT 2
 
 #define SERVO_NUM 	32
@@ -49,7 +46,7 @@ ssize_t pwm_write(struct file* file, const char *buf, size_t count, loff_t * f_p
 
 typedef struct
 {
-	char 			name[DEF_DEV_NAME];
+	char 				name[DEF_DEV_NAME];
 	unsigned char 		position;
 	unsigned char 		id;
 	struct miscdevice 	dev;	
@@ -91,9 +88,9 @@ dev_channel_t * pwm_create_device(int id)
 	device->id			= id;
 
 	ret = misc_register(&(device->dev));
-        if (ret)
+    if (ret)
 	{
-	        printk(KERN_ERR "Unable to register pwm driver misc device %s error %d\n", device->name, ret);
+	    printk(KERN_ERR "Unable to register pwm driver misc device %s error %d\n", device->name, ret);
 		kfree(device);
 		device = NULL;
 	}
@@ -109,7 +106,14 @@ int pwm_init(void)
 	/* Allocating memory for the buffer */
 	for(i=0; i<SERVO_NUM; i++)
 	{
-		servo[i] = pwm_create_device(i);
+		if(is_valid_signal(i))
+		{
+			servo[i] = pwm_create_device(i);
+		}
+		else
+		{
+			servo[i] = NULL;
+		}
 	}
 	if(hw_init_pwm_device()!=0)
 	{

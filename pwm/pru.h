@@ -7,13 +7,13 @@
 
 #ifndef PWM_PRU_H_
 #define PWM_PRU_H_
-
-
+#include "ecap.h"
 /*****************************************************/
 /********	DEFINES **********************************/
 /*****************************************************/
 #define PRU_INTERNAL_RAM_SIZE	(8*1024) /* in bytes */
 #define PRU_SHARED_DATA_RAM_SIZE	(12*1024)
+
 
 
 
@@ -40,6 +40,7 @@ typedef enum
 	PRU_ERROR_DATA_ERROR,
 	PRU_ERROR_ALREADY_INITIALIZED,
 	PRU_ERROR_ALLOCATION_ERROR,
+	PRU_ERROR_ECAP_INIT_ERROR,
 	PRU_ERROR_UNKNOWN_ERROR
 }pru_error_t;
 
@@ -66,6 +67,186 @@ typedef struct
 	unsigned int GPREG[32]; 		/* 0x00h - 0x80h */
 	unsigned int CT_REG[32]; 		/* 0x80h - 0x100h */
 }PRUSS_PRU_DEBUG_t;
+
+#define CH_MAP_0_3		0
+#define CH_MAP_8_11		0
+#define CH_MAP_16_19	0
+#define CH_MAP_24_27	0
+#define INTC_INT_CLEAR	1
+#define SECOND_REG_OFFSET	32
+
+#define GET_INT_INDEX(X) (((X)>31)?((X)-SECOND_REG_OFFSET):(X))
+
+typedef enum
+{
+	INTC_INTERRUPTS_DISABLED = 0,
+	INTC_INTERRUPTS_ENABLED  = 1
+}intc_interrupt_state_t;
+
+typedef enum
+{
+	/*add here others - there are too many of them for me to add them all */
+	ECAP_INTR_INTR_PEND_ECAP0	= 42
+}intc_system_event_t;
+typedef enum
+{
+	INTC_CH_MAP_0 		= CH_MAP_0_3,
+	INTC_CH_MAP_1		= CH_MAP_8_11,
+	INTC_CH_MAP_2		= CH_MAP_16_19,
+	INTC_CH_MAP_3		= CH_MAP_24_27,
+	INTC_CH_MAP_4 		= CH_MAP_0_3,
+	INTC_CH_MAP_5		= CH_MAP_8_11,
+	INTC_CH_MAP_6		= CH_MAP_16_19,
+	INTC_CH_MAP_7		= CH_MAP_24_27,
+	INTC_CH_MAP_8 		= CH_MAP_0_3,
+	INTC_CH_MAP_9		= CH_MAP_8_11,
+	INTC_CH_MAP_10		= CH_MAP_16_19,
+	INTC_CH_MAP_11		= CH_MAP_24_27,
+	INTC_CH_MAP_12 		= CH_MAP_0_3,
+	INTC_CH_MAP_13		= CH_MAP_8_11,
+	INTC_CH_MAP_14		= CH_MAP_16_19,
+	INTC_CH_MAP_15		= CH_MAP_24_27,
+	INTC_CH_MAP_16 		= CH_MAP_0_3,
+	INTC_CH_MAP_17		= CH_MAP_8_11,
+	INTC_CH_MAP_18		= CH_MAP_16_19,
+	INTC_CH_MAP_19		= CH_MAP_24_27,
+	INTC_CH_MAP_20 		= CH_MAP_0_3,
+	INTC_CH_MAP_21		= CH_MAP_8_11,
+	INTC_CH_MAP_22		= CH_MAP_16_19,
+	INTC_CH_MAP_23		= CH_MAP_24_27,
+	INTC_CH_MAP_24 		= CH_MAP_0_3,
+	INTC_CH_MAP_25		= CH_MAP_8_11,
+	INTC_CH_MAP_26		= CH_MAP_16_19,
+	INTC_CH_MAP_27		= CH_MAP_24_27,
+	INTC_CH_MAP_28 		= CH_MAP_0_3,
+	INTC_CH_MAP_29		= CH_MAP_8_11,
+	INTC_CH_MAP_30		= CH_MAP_16_19,
+	INTC_CH_MAP_31		= CH_MAP_24_27,
+	INTC_CH_MAP_32 		= CH_MAP_0_3,
+	INTC_CH_MAP_33		= CH_MAP_8_11,
+	INTC_CH_MAP_34		= CH_MAP_16_19,
+	INTC_CH_MAP_35		= CH_MAP_24_27,
+	INTC_CH_MAP_36 		= CH_MAP_0_3,
+	INTC_CH_MAP_37		= CH_MAP_8_11,
+	INTC_CH_MAP_38		= CH_MAP_16_19,
+	INTC_CH_MAP_39		= CH_MAP_24_27,
+	INTC_CH_MAP_40 		= CH_MAP_0_3,
+	INTC_CH_MAP_41		= CH_MAP_8_11,
+	INTC_CH_MAP_42		= CH_MAP_16_19,
+	INTC_CH_MAP_43		= CH_MAP_24_27,
+	INTC_CH_MAP_44 		= CH_MAP_0_3,
+	INTC_CH_MAP_45		= CH_MAP_8_11,
+	INTC_CH_MAP_46		= CH_MAP_16_19,
+	INTC_CH_MAP_47		= CH_MAP_24_27,
+	INTC_CH_MAP_48 		= CH_MAP_0_3,
+	INTC_CH_MAP_49		= CH_MAP_8_11,
+	INTC_CH_MAP_50		= CH_MAP_16_19,
+	INTC_CH_MAP_51		= CH_MAP_24_27,
+	INTC_CH_MAP_52 		= CH_MAP_0_3,
+	INTC_CH_MAP_53		= CH_MAP_8_11,
+	INTC_CH_MAP_54		= CH_MAP_16_19,
+	INTC_CH_MAP_55		= CH_MAP_24_27,
+	INTC_CH_MAP_56 		= CH_MAP_0_3,
+	INTC_CH_MAP_57		= CH_MAP_8_11,
+	INTC_CH_MAP_58		= CH_MAP_16_19,
+	INTC_CH_MAP_59		= CH_MAP_24_27,
+	INTC_CH_MAP_60 		= CH_MAP_0_3,
+	INTC_CH_MAP_61		= CH_MAP_8_11,
+	INTC_CH_MAP_62		= CH_MAP_16_19,
+	INTC_CH_MAP_63		= CH_MAP_24_27
+}intc_ch_map_t;
+
+typedef enum
+{
+	INTC_CHANNEL_0	= 0,
+	INTC_CHANNEL_1,
+	INTC_CHANNEL_2,
+	INTC_CHANNEL_3,
+	INTC_CHANNEL_4,
+	INTC_CHANNEL_5,
+	INTC_CHANNEL_6,
+	INTC_CHANNEL_7,
+	INTC_CHANNEL_8,
+	INTC_CHANNEL_9
+}intc_channel_t;
+
+typedef enum
+{
+	INTC_SIPR_ACTIVE_LOW 		= 0x0,
+	INTC_SIPR_ACTIVE_HIGH 		= 0x1,
+	INTC_SIPR_ALL_ACTIVE_LOW 	= 0x0,
+	INTC_SIPR_ALL_ACTIVE_HIGH 	= 0xFFFFFFFF
+}intc_sipr_vals_t;
+
+typedef enum
+{
+	INTC_SIPR_INDEX_0_31	= 0,
+	INTC_SIPR_INDEX_32_63
+}intc_sipr_index_t;
+
+typedef enum
+{
+	INTC_SITR_PULSE 	= 0x0,
+	INTC_SITR_EDGE 		= 0x1,
+	INTC_SITR_ALL_PULSE = 0x0,
+	INTC_SITR_ALL_EDGE 	= 0xFFFFFFFF
+}intc_sitr_vals_t;
+
+typedef enum
+{
+	INTC_SITR_INDEX_0_31	= 0,
+	INTC_SITR_INDEX_32_63
+}intc_sitr_index_t;
+
+
+typedef enum
+{
+	INTC_SECR_INDEX_0_31	= 0,
+	INTC_SECR_INDEX_32_63
+}intc_secr_index_t;
+
+
+typedef enum
+{
+	INTC_CMR_INDEX_0_3	= 0,
+	INTC_CMR_INDEX_4_7,
+	INTC_CMR_INDEX_8_11,
+	INTC_CMR_INDEX_12_15,
+	INTC_CMR_INDEX_16_19,
+	INTC_CMR_INDEX_20_23,
+	INTC_CMR_INDEX_24_27,
+	INTC_CMR_INDEX_28_31,
+	INTC_CMR_INDEX_32_35,
+	INTC_CMR_INDEX_36_39,
+	INTC_CMR_INDEX_40_43,
+	INTC_CMR_INDEX_44_47,
+	INTC_CMR_INDEX_48_51,
+	INTC_CMR_INDEX_52_55,
+	INTC_CMR_INDEX_56_59,
+	INTC_CMR_INDEX_60_63
+}intc_cmr_index_t;
+
+typedef enum
+{
+	INTC_HINT_MAP_0 = 0,
+	INTC_HINT_MAP_1	= 8,
+	INTC_HINT_MAP_2 = 16,
+	INTC_HINT_MAP_3 = 24,
+	INTC_HINT_MAP_4 = 0,
+	INTC_HINT_MAP_5 = 8,
+	INTC_HINT_MAP_6 = 16,
+	INTC_HINT_MAP_7 = 24,
+	INTC_HINT_MAP_8 = 0,
+	INTC_HINT_MAP_9 = 8
+}intc_hint_map_offset_t;
+
+typedef enum
+{
+	INTC_HMR_INDEX_0_3 = 0,
+	INTC_HMR_INDEX_4_7,
+	INTC_HMR_INDEX_8_10
+}intc_hmr_index_t;
+
 
 typedef struct
 {
@@ -150,7 +331,8 @@ typedef struct
 	unsigned int Reserved0[0x0800];											/* 0x0002 A000 to 0x0002 C000 */
 	unsigned int Reserved1[0x0800];											/* 0x0002 C000 to 0x0002 E000 */
 	unsigned int IEP[0x0800];												/* 0x0002 E000 to 0x0003 0000 */
-	unsigned int eCAP0[0x0800];												/* 0x0003 0000 to 0x0003 2000 */
+	ecap_mem_t eCAP0;														/* 0x0003 0000 to 0x0003 0060 */
+	unsigned int _pad8[0x07E8];												/* 0x0003 0060 to 0x0003 2000 */
 	unsigned int MII_RT_CFG[0x0100];										/* 0x0003_2000 to 0x0003 2400 */
 	unsigned int MII_MDIO[0x0700];											/* 0x0003_2400 to 0x0003 4000 */
 	unsigned int PRU0_iram[PRU_INTERNAL_RAM_SIZE>>2];						/* 0x0003_4000 to 0x0003_6000 */
@@ -170,6 +352,7 @@ pru_error_t pru_upload(pru_id_t id, const unsigned int * data, unsigned int len)
 pru_error_t pru_run(pru_id_t id);
 pru_error_t pru_halt(pru_id_t id);
 pru_error_t pru_reset(pru_id_t id);
+pru_error_t pru_config_int(pru_id_t id);
 
 
 

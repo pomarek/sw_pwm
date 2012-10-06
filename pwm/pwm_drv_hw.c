@@ -4,6 +4,9 @@
 
 #include "pwm_drv_hw.h"
 #include "pru.h"
+#include "gpio_regs.h"
+
+
 #include "pru_pwm_sw_bin.h"
 
 /***********************************    MACROS   ******************************************/
@@ -27,8 +30,7 @@
 #define GPIO3_CLEARDATAOUT 	(GPIO3_BASE + GPIO_CLEARDATAOUT)
 
 
-#define PWM_PRU PRU_ID_PRU0
-
+#define PWM_PRU 		PRU_ID_PRU0
 #define GPIO_NAME "PWM_GPIOS"
 
 #define PWM_CHANNELS			32
@@ -59,52 +61,109 @@ typedef struct
 /***********************************  GPIO DESC  ******************************************/
 const pwm_output_t gpio_desc[PWM_CHANNELS] =
 {
-		{GPIO1_CLEARDATAOUT, _BIT(21)},
-		{GPIO1_CLEARDATAOUT, _BIT(22)},
-		{GPIO1_CLEARDATAOUT, _BIT(23)},
-		{GPIO1_CLEARDATAOUT, _BIT(24)},
+		{GPIO1_CLEARDATAOUT, _BIT(7)},
+		{GPIO1_CLEARDATAOUT, _BIT(3)},
+		{GPIO2_CLEARDATAOUT, _BIT(3)},
+		{GPIO2_CLEARDATAOUT, _BIT(4)},
 
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
+		{GPIO1_CLEARDATAOUT, _BIT(12)},
+		{GPIO0_CLEARDATAOUT, _BIT(26)},
+		{GPIO1_CLEARDATAOUT, _BIT(14)},
+		{GPIO2_CLEARDATAOUT, _BIT(1)},
 
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
+		{GPIO1_CLEARDATAOUT, _BIT(31)},
+		{GPIO1_CLEARDATAOUT, _BIT(5)},
+		{GPIO1_CLEARDATAOUT, _BIT(1)},
+		{GPIO1_CLEARDATAOUT, _BIT(29)},
 
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
+		{GPIO2_CLEARDATAOUT, _BIT(24)},
+		{GPIO2_CLEARDATAOUT, _BIT(25)},
+		{GPIO0_CLEARDATAOUT, _BIT(11)},
+		{GPIO2_CLEARDATAOUT, _BIT(17)},
 
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
+		{GPIO2_CLEARDATAOUT, _BIT(15)},
+		{GPIO2_CLEARDATAOUT, _BIT(13)},
+		{GPIO2_CLEARDATAOUT, _BIT(11)},
+		{GPIO2_CLEARDATAOUT, _BIT(9)},
 
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
+		{GPIO2_CLEARDATAOUT, _BIT(7)},
+		{GPIO3_CLEARDATAOUT, _BIT(14)},
+		{GPIO3_CLEARDATAOUT, _BIT(15)},
+		{GPIO3_CLEARDATAOUT, _BIT(19)},
 
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
+		{GPIO3_CLEARDATAOUT, _BIT(21)},
+		{GPIO1_CLEARDATAOUT, _BIT(17)},
+		{GPIO0_CLEARDATAOUT, _BIT(3)},
+		{GPIO0_CLEARDATAOUT, _BIT(13)},
 
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
-		{GPIO1_CLEARDATAOUT, _BIT_EMPTY},
+		{GPIO0_CLEARDATAOUT, _BIT(5)},
+		{GPIO1_CLEARDATAOUT, _BIT(16)},
+		{GPIO0_CLEARDATAOUT, _BIT(31)},
+		{GPIO0_CLEARDATAOUT, _BIT(30)},
 };
 /***********************************  VARIABLES  ******************************************/
 static pwm_pru_mem_desc_t * pru_servo_desc = NULL;
-
 /***********************************     CODE    ******************************************/
+int s_set_goio_out_mux(unsigned int bank, unsigned int bit)
+{
+	if(gpio_mux[bank*32 +bit].valid)
+	{
+		printk(KERN_INFO "Setting mux for GPIO%d_%d - %s\r\n", bank, bit, gpio_mux[bank*32 +bit].name);
+		if(set_ball_mux(bank, bit, MUX_FUN_GPIO)<0)
+			return -1;
+		if(set_gpio_dir(bank, bit, GPIO_DIR_OUT, 0)<0)
+			return -1;
+	}
+	else
+	{
+		printk(KERN_INFO "GPIO%d_%d not available - %s\r\n", bank, bit, gpio_mux[bank*32 +bit].name);
+		return -1;
+	}
+	return 0;
+}
+
 int s_hw_init_muxing(void)
 {
+	int i;
+	int bank, bit;
+	for(i=0; i<PWM_CHANNELS; i++)
+	{
+		if(gpio_desc[i].bit_mask == _BIT_EMPTY)
+			continue;
+		for(bit=0; bit<32; bit++)
+		{
+			if(gpio_desc[i].bit_mask & 1<<bit)
+				break;
+		}
+		switch(gpio_desc[i].gpio_clear_set_reg)
+		{
+		case GPIO0_CLEARDATAOUT:
+			bank = 0;
+			break;
+		case GPIO1_CLEARDATAOUT:
+			bank = 1;
+			break;
+		case GPIO2_CLEARDATAOUT:
+			bank = 2;
+			break;
+		case GPIO3_CLEARDATAOUT:
+			bank = 3;
+			break;
+		default:
+			return -1;
+		}
+		if(s_set_goio_out_mux(bank, bit)<0)
+			return -1;
+	}
+	return 0;
+}
+
+int is_valid_signal(int num)
+{
+	if(num <0 || num>=PWM_CHANNELS)
+		return 0;
+	if(gpio_desc[num].bit_mask!=_BIT_EMPTY)
+		return 1;
 	return 0;
 }
 
@@ -127,14 +186,23 @@ static  pwm_pru_mem_desc_t * s_init_pru_data_space(pru_id_t id)
 	return result;
 }
 
+
+
 int hw_init_pwm_device(void)
 {
-	s_hw_init_muxing();
+	if(s_hw_init_muxing()<0)
+	{
+		printk(KERN_ERR "Mux initialization failed\r\n");
+		return -1;
+	}
+	printk(KERN_INFO "Pru initialization started\r\n");
+
 	if(pru_init() != PRU_ERROR_NO_ERROR)
 	{
 		printk(KERN_ERR "Pru initialization failed\r\n");
 		return -1;
 	}
+
 	if(pru_upload(PWM_PRU, PRUCode, sizeof(PRUCode)) != PRU_ERROR_NO_ERROR)
     {
 		printk(KERN_ERR "Can not upload pru software\r\n");

@@ -9,5 +9,6 @@ int hw_disable_bank(int pwm_bank);
 int hw_set_pos(int pwm_num, unsigned char pos);
 unsigned char hw_get_position(int pwm_num);
 void hw_close_pwm_device(void);
+int is_valid_signal(int num);
 
 #endif

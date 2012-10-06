@@ -1,6 +1,6 @@
 #linux makefile part
 obj-m := pwmd.o
-pwmd-objs :=pwm_drv.o pwm_drv_hw.o pru.o
+pwmd-objs :=pwm_drv.o pwm_drv_hw.o pru.o gpio_regs.o
 
 
 
@@ -33,7 +33,11 @@ test:
 	./test.x
 	rm test.x
 
+bonereboot:
+	ssh -l root 192.168.1.6 '/sbin/shutdown -r 1'
+	
 clean:
 	rm -f *.ko *.o *.mod.c modules.order Module.symvers *_bin.h
+	
 
 

@@ -8,7 +8,8 @@
 #define PRUSS_END 	0x4A37FFFF
 
 #define CM_PER_BASE				0x44E00000
-#define CM_PER_PRUSS_CLKCTRL 	CM_PER_BASE + 0xE8
+#define CM_PER_PRUSS_CLKCTRL 	CM_PER_BASE + 0x00E8
+#define CM_PER_PRUSS_CLKSTCTRL  CM_PER_BASE + 0x0140
 
 #define PRM_PER_BASE			0x44E00C00
 #define RM_PER_RSTCTRL 			PRM_PER_BASE
@@ -69,6 +70,16 @@ static pru_error_t s_pru_enable_clocking_and_power(void)
 	*reg = 2;
 	iounmap(reg);
 
+
+	reg = (unsigned int *) ioremap_nocache(CM_PER_PRUSS_CLKSTCTRL, sizeof(unsigned int));
+	if(reg == NULL)
+	{
+		return PRU_ERROR_ALLOCATION_ERROR;
+	}
+	*reg = 2;
+	iounmap(reg);
+
+
 	/* those registers should already have all the bits we need set correctly, however */
 	/* to make sure nothing goes wrong we set them again. */
 	reg = (unsigned int *) ioremap_nocache(PM_PER_PWRSTST, sizeof(unsigned int));
@@ -113,7 +124,7 @@ pru_error_t pru_init(void)
 	}
 	if(s_pru_enable_clocking_and_power() != PRU_ERROR_NO_ERROR)
 	{
-			return PRU_ERROR_CLOCKING;
+		return PRU_ERROR_CLOCKING;
 	}
 
 	pruss_data = s_pru_init_memory_space();
@@ -121,6 +132,7 @@ pru_error_t pru_init(void)
 	{
 		return PRU_ERROR_ALLOCATION_ERROR;
 	}
+
 	pruss_data->CFG.SYSCFG &= ~ (1<<4);
 
 	return PRU_ERROR_NO_ERROR;
@@ -269,4 +281,45 @@ pru_error_t pru_reset(pru_id_t id)
 	}
     ctrl_data->CONTROL &= ~PRU_CTRL_PRU_RESET;
 	return PRU_ERROR_NO_ERROR;
+}
+
+pru_error_t pru_config_int(pru_id_t id)
+{
+	if(pruss_data == NULL)
+	{
+		return PRU_ERROR_NOT_INITIALIZED;
+	}
+//	Follow these steps to configure the interrupt controller.
+
+	//	1. Set polarity and type of system event through the System Interrupt Polarity Registers (SIPR1 and
+	//	SPIR2) and the System Interrupt Type Registers (SITR1 and SITR2). Polarity of all system interrupts is
+	//	always high. Type of all system interrupts is always pulse.
+
+	pruss_data->INTC.SIPR[INTC_SIPR_INDEX_0_31]  = INTC_SIPR_ALL_ACTIVE_HIGH;
+	pruss_data->INTC.SIPR[INTC_SIPR_INDEX_32_63] = INTC_SIPR_ALL_ACTIVE_HIGH;
+
+	pruss_data->INTC.SITR[INTC_SITR_INDEX_0_31]  = INTC_SITR_ALL_PULSE;
+	pruss_data->INTC.SITR[INTC_SITR_INDEX_32_63] = INTC_SITR_ALL_PULSE;
+
+	//2. Map system event to INTC channel through CHANMAP registers.
+	pruss_data->INTC.CMR[INTC_CMR_INDEX_40_43] = INTC_CHANNEL_0 << INTC_CH_MAP_42;
+
+	//3. Map channel to host interrupt through HOSTMAP registers. Recommend channel “x” be mapped to
+	//host interrupt “x”.
+	pruss_data->INTC.HMR[INTC_HMR_INDEX_0_3] = INTC_CHANNEL_0 << INTC_HINT_MAP_0;
+
+	//4. Clear system interrupt by writing 1s to SECR registers.
+	pruss_data->INTC.SECR[INTC_SECR_INDEX_32_63] = INTC_INT_CLEAR<<GET_INT_INDEX(ECAP_INTR_INTR_PEND_ECAP0);
+
+	//5. Enable host interrupt by writing index value to HOSTINTENIDX register.
+	pruss_data->INTC.HIEISR = INTC_CHANNEL_0;
+	pruss_data->INTC.EISR = INTC_CHANNEL_0;
+
+	//6. Enable interrupt nesting if desired.
+
+	//7. Globally enable all interrupts through GLBLEN register.
+	pruss_data->INTC.GER = 	INTC_INTERRUPTS_ENABLED;
+
+	return PRU_ERROR_NO_ERROR;
+
 }
