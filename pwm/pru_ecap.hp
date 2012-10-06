@@ -1,0 +1,181 @@
+
+#define ECAP0_BASE_REG	c3
+#define INTC_BASE_REG	c0
+
+//intc registers
+#define INTC_REVID 		0x0
+#define INTC_CR 		0x4
+#define INTC_GER 		0x10
+#define INTC_GNLR 		0x1C
+#define INTC_SISR 		0x20
+#define INTC_SICR 		0x24
+#define INTC_EISR 		0x28
+#define INTC_EICR 		0x2C
+#define INTC_HIEISR 	0x34
+#define INTC_HIDISR 	0x38
+#define INTC_GPIR 		0x80
+#define INTC_SRSR0 		0x200
+#define INTC_SRSR1 		0x204
+#define INTC_SECR0 		0x280
+#define INTC_SECR1 		0x284
+#define INTC_ESR0 		0x300
+#define INTC_ERS1 		0x304
+#define INTC_ECR0 		0x380
+#define INTC_ECR1 		0x384
+#define INTC_CMR0 		0x400
+#define INTC_CMR1 		0x404
+#define INTC_CMR2 		0x408
+#define INTC_CMR3 		0x40C
+#define INTC_CMR4 		0x410
+#define INTC_CMR5 		0x414
+#define INTC_CMR6 		0x418
+#define INTC_CMR7 		0x41C
+#define INTC_CMR8 		0x420
+#define INTC_CMR9 		0x424
+#define INTC_CMR10 		0x428
+#define INTC_CMR11 		0x42C
+#define INTC_CMR12 		0x430
+#define INTC_CMR13 		0x434
+#define INTC_CMR14 		0x438
+#define INTC_CMR15 		0x43C
+#define INTC_HMR0 		0x800
+#define INTC_HMR1 		0x804
+#define INTC_HMR2 		0x808
+#define INTC_HIPIR0 	0x900
+#define INTC_HIPIR1 	0x904
+#define INTC_HIPIR2 	0x908
+#define INTC_HIPIR3 	0x90C
+#define INTC_HIPIR4 	0x910
+#define INTC_HIPIR5 	0x914
+#define INTC_HIPIR6 	0x918
+#define INTC_HIPIR7 	0x91C
+#define INTC_HIPIR8 	0x920
+#define INTC_HIPIR9 	0x924
+#define INTC_SIPR0 		0xD00
+#define INTC_SIPR1 		0xD04
+#define INTC_SITR0 		0xD80
+#define INTC_SITR1 		0xD84
+#define INTC_HINLR0 	0x1100
+#define INTC_HINLR1 	0x1104
+#define INTC_HINLR2 	0x1108
+#define INTC_HINLR3 	0x110C
+#define INTC_HINLR4 	0x1110
+#define INTC_HINLR5 	0x1114
+#define INTC_HINLR6 	0x1118
+#define INTC_HINLR7 	0x111C
+#define INTC_HINLR8 	0x1120
+#define INTC_HINLR9 	0x1124
+#define INTC_HIER 		0x1500
+
+#define ECAP_INT_NUM 15
+#define ECAP_INT_BIT 15
+
+#define INT_USED 1
+
+
+//ecap registers
+#define TSCTR 	0x0
+#define CTRPHS	0x4
+#define CAP1	0x8
+#define CAP2	0xC
+#define CAP3	0x10
+#define CAP4	0x14
+#define ECCTL1	0x28
+#define ECCTL2	0x2A
+#define ECEINT	0x2C
+#define ECFLG	0x2E
+#define ECCLR	0x30
+#define ECFRC	0x32
+#define REVID	0x5C
+
+//ecap bit fields
+#define ECCTL2_APWMPOL_BIT		10
+#define ECCTL2_CAP_APWM_BIT		9
+#define ECCTL2_TSCTRSTOP_BIT	4
+
+#define ECEINT_CTRPRD_BIT		6
+
+//ecap cfg values
+#define ECCTL2_VAL 1<<ECCTL2_APWMPOL_BIT |(1<<ECCTL2_CAP_APWM_BIT)
+
+//other
+#define SHORT_REG_SIZE	2
+// ************************************************************************
+.macro sbco_far
+.mparam ct, val, off, size
+	mov R10, val
+	mov R11, off
+	sbco R10, ct, R11, size
+.endm
+// ************************************************************************
+//initializes ecap interrupts for pwm time base
+.macro ecap0_init_int
+	mov R10, 0x00FF
+	sbco R10, ECAP0_BASE_REG, ECCLR, SHORT_REG_SIZE
+	mov R10, (1<<ECEINT_CTRPRD_BIT)
+	sbco R10, ECAP0_BASE_REG, ECEINT, SHORT_REG_SIZE
+	ecap_int_forward_en
+.endm
+
+// ************************************************************************
+//clears ecap interrupts
+.macro ecap0_int_clr
+	mov R10, ECAP_INT_NUM
+	sbco R10, INTC_BASE_REG, INTC_SICR, REG_SIZE
+
+	mov R10, 0x00FF
+	sbco R10, ECAP0_BASE_REG, ECCLR, SHORT_REG_SIZE
+.endm
+
+// ************************************************************************
+//initializes ecap 0 for time generation
+.macro ecap0_init
+.mparam phase, cmp
+	//stop
+	mov R10, ECCTL2_VAL
+	sbco R10, ECAP0_BASE_REG, ECCTL2, SHORT_REG_SIZE
+	//config
+	mov R10, phase
+	sbco R10, ECAP0_BASE_REG, CAP1, REG_SIZE
+	mov R10, cmp
+	sbco R10, ECAP0_BASE_REG, CAP2, REG_SIZE
+
+	ecap0_init_int
+	//start
+	mov R10, ECCTL2_VAL|(1<<ECCTL2_TSCTRSTOP_BIT)
+	sbco R10, ECAP0_BASE_REG, ECCTL2, SHORT_REG_SIZE
+.endm
+
+// ************************************************************************
+//configures ecap interrupts to forward to pruss
+.macro ecap_int_forward_en
+	sbco_far INTC_BASE_REG, 0xFFFFFFFF, INTC_SIPR0, REG_SIZE //Set polarity and type of system event//ok
+	sbco_far INTC_BASE_REG, 0x00000000, INTC_SITR0, REG_SIZE //Set polarity and type of system event//ok
+
+	sbco_far INTC_BASE_REG, INT_USED<<24, INTC_CMR3, REG_SIZE //Map system event to INTC channel//ok
+
+	sbco_far INTC_BASE_REG, INT_USED<<(8*INT_USED), INTC_HMR0, REG_SIZE //Map channel to host interrupt//ok
+
+	sbco_far INTC_BASE_REG, (1<<ECAP_INT_BIT), INTC_SECR0, REG_SIZE //Clear system interrupt
+
+	sbco_far INTC_BASE_REG, (1<<ECAP_INT_BIT), INTC_ESR0, REG_SIZE //Clear system interrupt
+
+
+	//sbco_far INTC_BASE_REG, ECAP_INT_NUM, INTC_HIEISR, REG_SIZE //Enable host interrupt by writing index value to HOSTINTENIDX register.
+	sbco_far INTC_BASE_REG, INT_USED, INTC_HIEISR, REG_SIZE //Enable host interrupt by writing index value to HOSTINTENIDX register.
+
+	sbco_far INTC_BASE_REG, 1, INTC_GER, REG_SIZE //Globally enable all interrupts through GLBLEN register.
+.endm
+// ************************************************************************
+//returns ecap version in r10
+.macro ecap_get_ver:
+	lbco r10,  ECAP0_BASE_REG, REVID, REG_SIZE
+.endm
+
+// ************************************************************************
+.macro WAIT
+	wbs R31, 31
+	ecap0_int_clr
+.endm
+
+
