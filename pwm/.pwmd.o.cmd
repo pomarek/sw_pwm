@@ -1,0 +1,1 @@
+cmd_/home/szakal/uc/pwm/pwmd.o := /home/szakal/uc/setup-scripts/build/tmp-angstrom_v2012_05-eglibc/sysroots/i686-linux/usr/bin/armv7a-angstrom-linux-gnueabi/arm-angstrom-linux-gnueabi-ld -EL    -r -o /home/szakal/uc/pwm/pwmd.o /home/szakal/uc/pwm/pwm_drv.o /home/szakal/uc/pwm/pwm_drv_hw.o /home/szakal/uc/pwm/pru.o /home/szakal/uc/pwm/gpio_regs.o 

@@ -2,6 +2,8 @@
 .origin 0
 .entrypoint PWM_START
 
+#define INVERTED_LOGIC
+
 #include "pru_data.hp"
 #include "pru_ecap.hp"
 #include "pru_pwm_macros.hp"

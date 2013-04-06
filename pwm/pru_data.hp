@@ -33,25 +33,28 @@
 #define PRU_TIMER_INT_BIT		1
 #define PRU_TIMER_INT_CLEAR		(1<<PRU_TIMER_INT_BIT)
 
-//#define TICK_TIME				200
-//#define CTR_CLEAR_TIME  		6
-//#define DELAY 					(TICK_TIME - CTR_CLEAR_TIME)
-
-
 
 
 .macro pwm_set
 .mparam reg_offset, mask_offset
 	lbbo r10, ctrl.data, reg_offset, REG_ADDR_SIZE
 	lbbo r11, ctrl.data, mask_offset, REG_SIZE
+#ifdef INVERTED_LOGIC
+	sbbo r11, r10, GPIO_CLEAR_OFFSET, REG_SIZE
+#else
 	sbbo r11, r10, GPIO_SET_OFFSET, REG_SIZE
+#endif
 .endm
 
 .macro pwm_clear
 .mparam reg_offset, mask_offset
 	lbbo r10, ctrl.data, reg_offset, REG_ADDR_SIZE
 	lbbo r11, ctrl.data, mask_offset, REG_SIZE
+#ifdef INVERTED_LOGIC
+	sbbo r11, r10, GPIO_SET_OFFSET, REG_SIZE
+#else
 	sbbo r11, r10, GPIO_CLEAR_OFFSET, REG_SIZE
+#endif
 .endm
 
 

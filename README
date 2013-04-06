@@ -20,9 +20,9 @@ Work done:
 - pinmux, gpio dir configuration (not tested, until I get my hands on a logic analizer:) )
 - PRU initialization, software download
 - arm->pru communication
+- enable/disable /dev device
 
 Work to do:
-- /dev enable/disable devices
 - GPIO Subsystem power and clock management (currently driver assumes that all gpios used are powered and clocked correctly)
 - move BeagleBone's IP address and destination dir from Makefile to makefile.inc
 - code cleanup:)
@@ -36,8 +36,9 @@ COMPILATION:
 1. After downloading the source copy or move the makefile.inc to the directory above the source code(ie. "cp makefile.inc ../").
 2. Edit makefile.inc so that MY_COMPILER points to your ARM compiler(the same that was used to compile the kernel) and MY_SOURCE points to your kernel source.
 3. Make sure that you have the pasm compiler directory in your PATH. (pasm can be downloaded from ti.com)
-4. Type "make build" in the module source directory".
-5(OPTIONAL). You can update Makefile with your bone IP address and destination dir, put ssh keys on the bone and type "make". The module will be compiled, uploaded to the bone and installed automatically.
+4. Add or remove #define INVERTED_LOGIC in pru_pwm_sw.p if you are using inverted/normal logic for the gpio pins.
+5. Type "make build" in the module source directory".
+6(OPTIONAL). You can update Makefile with your bone IP address and destination dir, put ssh keys on the bone and type "make". The module will be compiled, uploaded to the bone and installed automatically.
 
 USAGE:
 1. If the optional step for the compilation was not performed, copy pwmd.ko to your BeagleBone memory card and type in the BeagleBone console "insmod path_to_module/pwmd.ko".

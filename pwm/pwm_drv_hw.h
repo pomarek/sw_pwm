@@ -11,4 +11,5 @@ unsigned char hw_get_position(int pwm_num);
 void hw_close_pwm_device(void);
 int is_valid_signal(int num);
 
+extern const int pwm_on_off_gpios[];
 #endif
